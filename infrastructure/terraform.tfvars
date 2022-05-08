@@ -1,4 +1,4 @@
-bucket_name = "articles-kha"
+bucket_name = "articles-frontend"
 
 common_tags = {
     Project     = "Articles"
