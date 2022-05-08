@@ -1,0 +1,21 @@
+{
+  "name": "articles-web",
+  "version": "1.0.0",
+  "description": "Articles website",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khrabrovart/articles-web.git"
+  },
+  "keywords": [
+    "articles"
+  ],
+  "author": "Arthur Khrabrov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/khrabrovart/articles-web/issues"
+  },
+  "homepage": "https://github.com/khrabrovart/articles-web#readme",
+  "devDependencies": {}
+}
