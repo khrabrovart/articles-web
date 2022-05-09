@@ -3,10 +3,17 @@ import ReactDOM from "react-dom";
 import App from "./components/App";
 import GlobalStyle from "./globalStyles";
 
-ReactDOM.render(
-  <React.Fragment>
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+
+const container = document.getElementById("app-root")!;
+const root = createRoot(container);
+
+root.render(
+  <React.StrictMode>
     <GlobalStyle />
-    <App />
-  </React.Fragment>,
-  document.getElementById("app-root")
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
 );
