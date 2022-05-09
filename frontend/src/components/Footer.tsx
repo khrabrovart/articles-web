@@ -21,7 +21,7 @@ const Content = styled.div`
 const Footer = () => {
   return (
     <Container>
-      <Content>© All rights reserved 2022</Content>
+      <Content>&copy; All rights reserved 2022</Content>
     </Container>
   );
 };
