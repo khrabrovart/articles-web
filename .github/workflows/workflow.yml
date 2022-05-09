@@ -20,6 +20,9 @@ jobs:
         with:
           node-version: 12
 
+      - name: Build project
+        run: yarn run build
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -27,4 +30,4 @@ jobs:
           aws-region: us-east-1
 
       - name: Deploy to S3
-        run: aws s3 sync ./public/ s3://articles-frontend --delete
+        run: aws s3 sync ./build/ s3://articles-frontend --delete
