@@ -9,8 +9,8 @@ terraform {
   }
 
   backend "s3" {
-    bucket  = "articles-tf"
-    key     = "terraform.tfstate"
+    bucket  = "kha-terraform-states"
+    key     = "articles/terraform.tfstate"
     region  = "us-east-1"
     profile = "khrabrovart-tf"
   }
