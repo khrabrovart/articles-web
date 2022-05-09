@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.header`
+  padding: 0 30px;
   height: 70px;
   display: flex;
   flex-flow: row nowrap;
@@ -13,7 +14,7 @@ const Container = styled.header`
 const TitleBlock = styled(Link)`
   display: flex;
   flex-flow: column nowrap;
-  margin-left: 30px;
+  margin-right: 30px;
   font-weight: bold;
   text-decoration: none;
   color: #145eab;
@@ -29,7 +30,6 @@ const TitleBottom = styled.div`
 `;
 
 const RightBlock = styled.div`
-  margin: 5px 30px 0 0;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -65,6 +65,7 @@ const Button = styled(NavItem)`
   padding: 5px 35px;
   border: solid 2px #4a4a4a;
   border-radius: 5px;
+  white-space: nowrap;
 `;
 
 const Header = () => {

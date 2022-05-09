@@ -15,6 +15,7 @@ const Container = styled.section`
 const PageLabel = styled.h1`
   font-size: 25pt;
   font-weight: bold;
+  color: #4a4a4a;
 `;
 
 const PageContent = styled.div`
