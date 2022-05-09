@@ -6,7 +6,7 @@
   "author": "Arthur Khrabrov",
   "license": "MIT",
   "scripts": {
-    "start": "webpack serve --port 3000",
+    "start": "webpack serve --port 3000 --history-api-fallback",
     "build": "NODE_ENV=production webpack",
     "build:win": "SET NODE_ENV=production && webpack"
   },

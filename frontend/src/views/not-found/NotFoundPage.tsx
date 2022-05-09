@@ -1,8 +1,8 @@
 import React from "react";
 import Page from "../Page";
 
-const NotFound = () => {
+const NotFoundPage = () => {
   return <Page>This page doesn't exist!</Page>;
 };
 
-export default NotFound;
+export default NotFoundPage;

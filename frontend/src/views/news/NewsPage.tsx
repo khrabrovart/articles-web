@@ -1,8 +1,8 @@
 import React from "react";
 import Page from "../Page";
 
-const News = () => {
+const NewsPage = () => {
   return <Page>This is my news page!</Page>;
 };
 
-export default News;
+export default NewsPage;

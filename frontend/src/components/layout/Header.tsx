@@ -10,12 +10,22 @@ const Container = styled.header`
   align-items: center;
 `;
 
-const Title = styled(Link)`
-  font-size: 30pt;
+const TitleBlock = styled(Link)`
+  display: flex;
+  flex-flow: column nowrap;
   margin-left: 30px;
-  font-weight: 800;
+  font-weight: bold;
   text-decoration: none;
   color: #145eab;
+`;
+
+const TitleTop = styled.div`
+  font-size: 30pt;
+  height: 40px;
+`;
+
+const TitleBottom = styled.div`
+  font-size: 8pt;
 `;
 
 const RightBlock = styled.div`
@@ -41,7 +51,7 @@ const NavItem = styled(Link)`
   cursor: pointer;
 
   &:hover {
-    color: #aaa;
+    opacity: 0.7;
   }
 `;
 
@@ -55,16 +65,15 @@ const Button = styled(NavItem)`
   padding: 5px 35px;
   border: solid 2px #4a4a4a;
   border-radius: 5px;
-
-  &:hover {
-    border: solid 2px #aaa;
-  }
 `;
 
 const Header = () => {
   return (
     <Container>
-      <Title to="/">Articles!</Title>
+      <TitleBlock to="/">
+        <TitleTop>Articles!</TitleTop>
+        <TitleBottom>Read it here. Please...</TitleBottom>
+      </TitleBlock>
       <RightBlock>
         <Nav>
           <NavItem to="/">Home</NavItem>
