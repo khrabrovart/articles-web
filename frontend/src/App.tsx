@@ -2,7 +2,8 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 import AboutPage from "./views/about/AboutPage";
-import ArticlesPage from "./views/articles/ArticlesPage";
+import ArticlePage from "./views/articles/article-page/ArticlePage";
+import ArticlesPage from "./views/articles/articles-page/ArticlesPage";
 import HomePage from "./views/home/HomePage";
 import NewsPage from "./views/news/NewsPage";
 import NotFoundPage from "./views/not-found/NotFoundPage";
@@ -14,7 +15,9 @@ const App = () => {
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
         <Route path="news" element={<NewsPage />} />
-        <Route path="articles" element={<ArticlesPage />} />
+        <Route path="articles" element={<ArticlesPage />}>
+          <Route path="aaa" element={<ArticlePage />} />
+        </Route>
         <Route path="about" element={<AboutPage />} />
         <Route path="sign-in" element={<SignInPage />} />
         <Route path="*" element={<NotFoundPage />} />

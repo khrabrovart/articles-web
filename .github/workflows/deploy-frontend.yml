@@ -25,7 +25,7 @@ jobs:
           cache-name: cache-node-modules
         uses: actions/cache@v3
         with:
-          path: '**/node_modules'
+          path: "**/node_modules"
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install dependencies
@@ -42,3 +42,6 @@ jobs:
 
       - name: Deploy to S3
         run: aws s3 sync ./dist/ s3://articles-frontend --delete
+
+      - name: Invalidate CloudFront
+        run: aws cloudfront create-invalidation --distribution-id E5FDMTLPHUTLTL --paths '/*'
