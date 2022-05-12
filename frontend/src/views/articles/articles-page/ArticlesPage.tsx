@@ -6,7 +6,7 @@ import Page from "../../Page";
 
 const articles: Article[] = [
   {
-    id: "test",
+    id: 1,
     title: "Tesla Model S",
     summary: "Some short text, TL;DR;",
     content: "Article's content",
@@ -14,7 +14,7 @@ const articles: Article[] = [
       "https://tesla-cdn.thron.com/delivery/public/image/tesla/2391415a-7273-4735-92b2-a37c84c26f04/bvlatuR/std/4096x2560/Homepage-Model-S-Desktop-RHD",
   },
   {
-    id: "2",
+    id: 2,
     title: "Some article",
     summary: "Some short text, TL;DR;",
     content: "Article's content",
@@ -22,7 +22,7 @@ const articles: Article[] = [
       "https://media.wired.com/photos/593261cab8eb31692072f129/master/pass/85120553.jpg",
   },
   {
-    id: "3",
+    id: 3,
     title: "Some article",
     summary: "Some short text, TL;DR;",
     content: "Article's content",
@@ -30,7 +30,7 @@ const articles: Article[] = [
       "https://images.frandroid.com/wp-content/uploads/2020/12/processeur-cpu.jpg",
   },
   {
-    id: "4",
+    id: 4,
     title: "Some article",
     summary: "Some short text, TL;DR;",
     content: "Article's content",
@@ -38,7 +38,7 @@ const articles: Article[] = [
       "https://www.fivb.org/Vis2009/Images/GetImage.asmx?Type=Press&No=90687&width=1410&height=923&stretch=uniformtofill",
   },
   {
-    id: "5",
+    id: 5,
     title: "Some article",
     summary: "Some short text, TL;DR;",
     content: "Article's content",
@@ -46,7 +46,7 @@ const articles: Article[] = [
       "https://daily.jstor.org/wp-content/uploads/2016/10/Moving_Forest_1050_700.jpg",
   },
   {
-    id: "6",
+    id: 6,
     title: "Some article",
     summary: "Some short text, TL;DR;",
     content: "Article's content",
@@ -94,10 +94,6 @@ const ArticlePanelSummary = styled.div`
 const ArticlesPage = () => {
   const navigate = useNavigate();
 
-  const openArticle = (articleId: string) => {
-    navigate(`./${articleId}`);
-  };
-
   return (
     <Page label="Articles">
       <Container>
@@ -105,7 +101,7 @@ const ArticlesPage = () => {
           <ArticlePanel
             key={article.id}
             imageUrl={article.imageUrl}
-            onClick={() => openArticle(article.id)}
+            onClick={() => navigate(article.id.toString())}
           >
             <ArticlePanelTitle>{article.title}</ArticlePanelTitle>
             <ArticlePanelSummary>{article.summary}</ArticlePanelSummary>
