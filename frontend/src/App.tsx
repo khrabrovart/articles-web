@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 import AboutPage from "./views/about/AboutPage";
 import ArticlePage from "./views/articles/article-page/ArticlePage";
@@ -19,7 +19,8 @@ const App = () => {
         <Route path="articles/:articleId" element={<ArticlePage />} />
         <Route path="about" element={<AboutPage />} />
         <Route path="sign-in" element={<SignInPage />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path="404" element={<NotFoundPage />} />
+        <Route path="*" element={<Navigate replace to="/404" />} />
       </Route>
     </Routes>
   );

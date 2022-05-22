@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 interface Props {
-  label?: string;
+  title?: string;
+  subtitle?: string;
   children: React.ReactNode;
 }
 
@@ -12,10 +13,14 @@ const Container = styled.section`
   padding: 0 20px;
 `;
 
-const PageLabel = styled.h1`
+const PageTitle = styled.h1`
   font-size: 25pt;
   font-weight: bold;
-  color: #4a4a4a;
+  margin-bottom: 10px;
+`;
+
+const PageSubtitle = styled.h2`
+  margin-top: 10px;
 `;
 
 const PageContent = styled.div`
@@ -25,7 +30,8 @@ const PageContent = styled.div`
 const Page = (props: Props) => {
   return (
     <Container>
-      <PageLabel>{props.label}</PageLabel>
+      {props.title && <PageTitle>{props.title}</PageTitle>}
+      {props.subtitle && <PageSubtitle>{props.subtitle}</PageSubtitle>}
       <PageContent>{props.children}</PageContent>
     </Container>
   );
