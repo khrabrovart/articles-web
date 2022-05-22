@@ -64,6 +64,10 @@ const ArticleComments = (props: { articleId: number }) => {
   const [newCommentText, setNewCommentText] = useState("");
 
   const sendComment = () => {
+    if (!newCommentText) {
+      return;
+    }
+
     const lastCommentId = Math.max(...comments.map((c) => c.id));
 
     const newCommentObject = {
@@ -92,7 +96,11 @@ const ArticleComments = (props: { articleId: number }) => {
         onChange={(e) => setNewCommentText(e.target.value)}
       />
       <NewCommentControls>
-        <Button label="Send comment" onClick={() => sendComment()} />
+        <Button
+          label="Send comment"
+          onClick={() => sendComment()}
+          disabled={!newCommentText}
+        />
       </NewCommentControls>
 
       <ExistingComments>

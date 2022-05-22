@@ -15,13 +15,23 @@ const Container = styled.button`
   &:hover {
     opacity: 0.7;
   }
+
+  &:disabled {
+    opacity: 0.2;
+    cursor: default;
+  }
 `;
 
 const Button = (props: {
   label: string;
   onClick: (e: MouseEvent<HTMLButtonElement>) => void;
+  disabled: boolean;
 }) => {
-  return <Container onClick={(e) => props.onClick(e)}>{props.label}</Container>;
+  return (
+    <Container onClick={(e) => props.onClick(e)} disabled={props.disabled}>
+      {props.label}
+    </Container>
+  );
 };
 
 export default Button;
