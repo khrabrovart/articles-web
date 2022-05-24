@@ -10,6 +10,9 @@ jobs:
           - project: ArticlesWeb.Functions.Comments.Get
             function-name: Articles_Comments_Get
 
+          - project: ArticlesWeb.Functions.Comments.Create
+            function-name: Articles_Comments_Create
+
     runs-on: ubuntu-latest
 
     env:
@@ -45,20 +48,20 @@ jobs:
       - name: Install dependencies
         run: dotnet restore
 
-      - name: Build projects
+      - name: Build project
         run: dotnet build --configuration Release --no-restore --output build
 
-      - name: Zip projects
+      - name: Zip project
         shell: bash
         run: |
           cd build
           zip -r ../${{ matrix.project }}.zip *
 
-      - name: Configure AWS Credentials
+      - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Deploy lambda functions
+      - name: Deploy lambda function
         run: aws lambda update-function-code --function-name ${{ matrix.function-name }} --zip-file fileb://${{ matrix.project }}.zip
