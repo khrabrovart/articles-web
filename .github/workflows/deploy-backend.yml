@@ -46,11 +46,11 @@ jobs:
         run: dotnet restore
 
       - name: Build projects
-        run: dotnet build --configuration Release --no-restore --output ./build
+        run: dotnet build --configuration Release --no-restore --output build
 
       - name: Zip projects
         shell: bash
-        run: zip -r ./${{ matrix.project }}.zip ./build
+        run: zip -r ${{ matrix.project }}.zip build
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
