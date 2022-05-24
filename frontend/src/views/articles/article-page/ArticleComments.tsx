@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "../../../components/controls/Button";
 import useArticleComments from "../../../hooks/data/ArticleCommentsDataHook";
+import useDateFormatter from "../../../hooks/DateFormatterHook";
 import { ArticleComment } from "../../../types/Articles";
 
 const Container = styled.div`
@@ -32,7 +33,7 @@ const ExistingComments = styled.div`
 `;
 
 const ExistingComment = styled.div`
-  background: #f1f1f1;
+  background: #f5f5f5;
   margin-top: 20px;
   border-radius: 5px;
   padding: 10px;
@@ -57,11 +58,11 @@ const ExistingCommentContent = styled.div`
 
 const ArticleComments = (props: { articleId: number }) => {
   const getCommentsByArticleId = useArticleComments();
-
+  const formatDate = useDateFormatter();
+  const [newCommentText, setNewCommentText] = useState("");
   const [comments, setComments] = useState<ArticleComment[]>(
     getCommentsByArticleId(props.articleId)
   );
-  const [newCommentText, setNewCommentText] = useState("");
 
   const sendComment = () => {
     if (!newCommentText) {
@@ -111,7 +112,9 @@ const ArticleComments = (props: { articleId: number }) => {
                 {c.user.fullName}
               </ExistingCommentUserFullName>
             )}
-            <ExistingCommentUserName>@{c.user.name}</ExistingCommentUserName>
+            <ExistingCommentUserName>
+              {`@${c.user.name} on ${formatDate(c.date)}`}
+            </ExistingCommentUserName>
             <ExistingCommentContent>{c.content}</ExistingCommentContent>
           </ExistingComment>
         ))}

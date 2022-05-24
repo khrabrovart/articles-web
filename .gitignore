@@ -10,3 +10,10 @@
 
 # Frontend dist directory
 **/frontend/dist/*
+
+# Backend bin & obj
+**/backend/**/bin/*
+**/backend/**/obj/*
+
+# JetBrains artifacts
+**/.idea/*

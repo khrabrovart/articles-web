@@ -32,7 +32,7 @@ const ArticleSectionContent = styled.p`
 `;
 
 const ArticleCommentsSeparator = styled.div`
-  margin: 60px 0 40px 0;
+  margin: 60px 0 20px 0;
   border-bottom: solid 1px #aaa;
 `;
 
