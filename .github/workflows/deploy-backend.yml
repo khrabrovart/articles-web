@@ -50,7 +50,9 @@ jobs:
 
       - name: Zip projects
         shell: bash
-        run: zip -r ${{ matrix.project }}.zip build
+        run: |
+          cd build
+          zip -r ${{ matrix.project }}.zip *
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
