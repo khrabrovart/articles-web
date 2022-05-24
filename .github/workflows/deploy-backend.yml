@@ -40,7 +40,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: "**/.nuget/packages"
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/packages.lock.json') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.project }}-${{ hashFiles('**/packages.lock.json') }}
 
       - name: Install dependencies
         run: dotnet restore
