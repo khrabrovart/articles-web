@@ -49,9 +49,8 @@ jobs:
         run: dotnet build --configuration Release --no-restore --output ./build
 
       - name: Zip projects
-        uses: montudor/action-zip@v1
-        with:
-          args: zip -qq -r ./${{ matrix.project }}.zip ./build
+        shell: bash
+        run: zip -r ./${{ matrix.project }}.zip ./build
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
