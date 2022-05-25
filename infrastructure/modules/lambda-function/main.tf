@@ -18,13 +18,20 @@ resource "aws_lambda_function" "lambda" {
   role          = aws_iam_role.lambda.arn
 
   filename = local.stub_file
-  //source_code_hash = filebase64sha256(local.stub_file)
 
   handler = var.function_handler
   runtime = "dotnet6"
   timeout = 5
 
   tags = var.common_tags
+
+  lifecycle {
+    ignore_changes = [
+      last_modified,
+      source_code_hash,
+      source_code_size
+    ]
+  }
 }
 
 resource "aws_cloudwatch_log_group" "lambda" {

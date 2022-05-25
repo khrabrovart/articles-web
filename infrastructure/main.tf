@@ -11,7 +11,7 @@ module "cloudfront" {
   common_tags      = var.common_tags
 }
 
-module "lambda_comments_get" {
+/*module "lambda_comments_get" {
   source           = "./modules/lambda-function"
   function_name    = "Articles_Comments_Get"
   function_handler = "ArticlesWeb.Functions.Comments.Get::ArticlesWeb.Functions.Comments.Get.Function::Handler"
@@ -23,4 +23,4 @@ module "lambda_comments_create" {
   function_name    = "Articles_Comments_Create"
   function_handler = "ArticlesWeb.Functions.Comments.Create::ArticlesWeb.Functions.Comments.Create.Function::Handler"
   common_tags      = var.common_tags
-}
+}*/
