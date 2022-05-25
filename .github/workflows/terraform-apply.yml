@@ -42,4 +42,4 @@ jobs:
       - name: Plan Terraform
         run: |
           cd infrastructure
-          TF_LOG=DEBUG terraform plan -input=false -no-color
+          terraform plan -input=false -no-color
