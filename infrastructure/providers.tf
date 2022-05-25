@@ -9,14 +9,13 @@ terraform {
   }
 
   backend "s3" {
-    bucket  = "kha-terraform-states"
-    key     = "articles/terraform.tfstate"
-    region  = "us-east-1"
-    profile = "khrabrovart-tf"
+    bucket = "kha-terraform-states"
+    key    = "articles/terraform.tfstate"
+    region = "us-east-1"
   }
 }
 
 provider "aws" {
-  profile = "khrabrovart-tf"
-  region  = var.region
+  allowed_account_ids = [var.allowed_account_id]
+  region              = var.region
 }
