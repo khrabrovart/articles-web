@@ -32,7 +32,7 @@ jobs:
       - name: Initialize Terraform
         run: |
           cd infrastructure
-          TF_LOG=DEBUG terraform init -input=false
+          terraform init -input=false
 
       - name: Validate Terraform
         run: |
@@ -42,4 +42,4 @@ jobs:
       - name: Plan Terraform
         run: |
           cd infrastructure
-          terraform plan -input=false -no-color
+          TF_LOG=DEBUG terraform plan -input=false -no-color
