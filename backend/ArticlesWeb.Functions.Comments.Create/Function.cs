@@ -9,6 +9,8 @@ public class Function
 {
     public string[] Handler(string input, ILambdaContext ctx)
     {
+        LambdaLogger.Log("Some message in logs");
+
         return new[]
         {
             "Comment 1",
