@@ -1,4 +1,4 @@
-name: Deploy frontend
+name: Apply Terraform
 
 on: [workflow_dispatch]
 
@@ -9,10 +9,6 @@ jobs:
     permissions:
       id-token: write
       contents: read
-
-    defaults:
-      run:
-        working-directory: ./frontend
 
     timeout-minutes: 10
 
