@@ -12,7 +12,6 @@ jobs:
     secrets:
       AWS_ROLE_TO_ASSUME: ${{ secrets.AWS_ROLE_TO_ASSUME }}
       AWS_REGION: ${{ secrets.AWS_REGION }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build-frontend:
     uses: ./.github/workflows/build-frontend.yml
