@@ -6,7 +6,12 @@ jobs:
   plan:
     env:
       TF_VAR_allowed_account_id: ${{ secrets.ALLOWED_ACCOUNT_ID }}
+
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./infrastructure
 
     permissions:
       id-token: write
@@ -30,16 +35,10 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Initialize Terraform
-        run: |
-          cd infrastructure
-          terraform init -input=false
+        run: terraform init -input=false
 
       - name: Validate Terraform
-        run: |
-          cd infrastructure
-          terraform validate -no-color
+        run: terraform validate -no-color
 
       - name: Plan Terraform
-        run: |
-          cd infrastructure
-          terraform plan -input=false -no-color
+        run: terraform plan -input=false -no-color

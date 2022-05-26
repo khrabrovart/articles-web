@@ -3,6 +3,11 @@ variable "bucket_name" {
   type        = string
 }
 
+variable "content_directory" {
+  description = "Directory to upload content from"
+  type        = string
+}
+
 variable "common_tags" {
   description = "Common tags for all components"
   type        = map(string)

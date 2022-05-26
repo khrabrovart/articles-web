@@ -1,7 +1,16 @@
-# S3 bucket for the static content (frontend)
 resource "aws_s3_bucket" "frontend" {
   bucket = var.bucket_name
   tags   = var.common_tags
+}
+
+resource "aws_s3_bucket_object" "directory_content" {
+  for_each = fileset(var.content_directory, "**")
+
+  bucket = var.bucket_name
+  key    = each.value
+  source = "${var.content_directory}/${each.value}"
+
+  etag = filemd5("${var.content_directory}/${each.value}")
 }
 
 resource "aws_s3_bucket_policy" "frontend" {
