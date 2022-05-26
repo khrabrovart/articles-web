@@ -14,6 +14,10 @@ jobs:
 
     timeout-minutes: 2
 
+    permissions:
+      id-token: write
+      contents: read
+
     steps:
       - name: Clone repository
         uses: actions/checkout@v2
