@@ -3,18 +3,11 @@ name: Deploy all
 on: [workflow_dispatch]
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  initalize:
+    uses: ./.github/workflows/initialize.yml
 
-    permissions:
-      id-token: write
-      contents: read
+  build-frontend:
+    uses: ./.github/workflows/build-frontend.yml
 
-    timeout-minutes: 10
-
-    steps:
-      - name: Initialize
-        uses: khrabrovart/articles-web/.github/workflows/initialize.yml
-
-      - name: Build frontend
-        uses: khrabrovart/articles-web/.github/workflows/build-frontend.yml
+  terraform:
+    uses: ./.github/workflows/terraform-apply.yml
