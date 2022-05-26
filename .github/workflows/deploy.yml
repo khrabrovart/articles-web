@@ -1,0 +1,20 @@
+name: Deploy
+
+on: [workflow_dispatch]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    timeout-minutes: 10
+
+    steps:
+      - name: Initialize
+        uses: articles-web/.github/initalize/compliance.yml
+
+      - name: Build frontend
+        uses: articles-web/.github/initalize/build-frontend.yml
