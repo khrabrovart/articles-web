@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Initialize
-        uses: khrabrovart/articles-web/.github/initalize/initialize.yml
+        uses: khrabrovart/articles-web/.github/workflows/initialize.yml
 
       - name: Build frontend
-        uses: khrabrovart/articles-web/.github/initalize/build-frontend.yml
+        uses: khrabrovart/articles-web/.github/workflows/build-frontend.yml
