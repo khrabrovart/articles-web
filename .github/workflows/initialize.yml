@@ -7,16 +7,14 @@ on:
         required: true
       AWS_REGION:
         required: true
+      GITHUB_TOKEN:
+        required: true
 
 jobs:
   initialize:
     runs-on: ubuntu-latest
 
     timeout-minutes: 2
-
-    permissions:
-      id-token: write
-      contents: read
 
     steps:
       - name: Clone repository
@@ -27,3 +25,5 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: ${{ secrets.AWS_REGION }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
