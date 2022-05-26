@@ -2,6 +2,11 @@ name: Initialize
 
 on:
   workflow_call:
+    secrets:
+      AWS_ROLE_TO_ASSUME:
+        required: true
+      AWS_REGION:
+        required: true
 
 jobs:
   initialize:

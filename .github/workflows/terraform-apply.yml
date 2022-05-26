@@ -2,6 +2,9 @@ name: Apply Terraform
 
 on:
   workflow_call:
+    secrets:
+      ALLOWED_ACCOUNT_ID:
+        required: true
 
 jobs:
   plan:

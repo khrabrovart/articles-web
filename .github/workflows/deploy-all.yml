@@ -5,6 +5,9 @@ on: [workflow_dispatch]
 jobs:
   initalize:
     uses: ./.github/workflows/initialize.yml
+    secrets:
+      AWS_ROLE_TO_ASSUME: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
 
   build-frontend:
     uses: ./.github/workflows/build-frontend.yml
@@ -12,4 +15,6 @@ jobs:
 
   terraform:
     uses: ./.github/workflows/terraform-apply.yml
+    secrets:
+      ALLOWED_ACCOUNT_ID: ${{ secrets.ALLOWED_ACCOUNT_ID }}
     needs: [initalize, build-frontend]
