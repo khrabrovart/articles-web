@@ -3,14 +3,20 @@ resource "aws_s3_bucket" "frontend" {
   tags   = var.common_tags
 }
 
-resource "aws_s3_object" "directory_content" {
-  for_each = fileset(var.content_directory, "**")
+module "template_files" {
+  source   = "hashicorp/dir/template"
+  base_dir = var.content_directory
+}
+
+resource "aws_s3_object" "frontend_content" {
+  for_each = module.template_files.files
 
   bucket = aws_s3_bucket.frontend.bucket
-  key    = each.value
-  source = "${var.content_directory}/${each.value}"
 
-  etag = filemd5("${var.content_directory}/${each.value}")
+  key          = each.key
+  content_type = each.value.content_type
+  source       = each.value.source_path
+  etag         = each.value.digests.md5
 }
 
 resource "aws_s3_bucket_policy" "frontend" {
