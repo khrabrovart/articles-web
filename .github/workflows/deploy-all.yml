@@ -39,7 +39,7 @@ jobs:
         with:
           name: frontend
           retention-days: 1
-          path: dist
+          path: ./dist
 
   plan-terraform:
     name: Plan Terraform
