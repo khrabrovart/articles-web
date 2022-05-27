@@ -1,7 +1,7 @@
 module "s3" {
   source            = "./modules/s3"
   bucket_name       = "articles-frontend"
-  content_directory = "../frontend/dist"
+  content_directory = "./dist"
   common_tags       = var.common_tags
 }
 

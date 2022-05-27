@@ -3,14 +3,11 @@ name: Deploy
 on: [workflow_dispatch]
 
 jobs:
-  deploy:
+  build-frontend:
+    name: Build Frontend
     runs-on: ubuntu-latest
 
-    timeout-minutes: 10
-
-    permissions:
-      id-token: write
-      contents: read
+    timeout-minutes: 3
 
     steps:
       - name: Clone repository
@@ -29,12 +26,30 @@ jobs:
           path: "**/node_modules"
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Install dependencies
-        run: yarn install
-
       - name: Build project
-        run: yarn build
+        run: |
+          yarn install
+          yarn build
 
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: frontend
+          retention-days: 1
+          path: dist
+
+  plan-terraform:
+    name: Plan Terraform
+    needs: build-frontend
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    timeout-minutes: 10
+
+    steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -46,16 +61,16 @@ jobs:
         with:
           terraform_version: 1.1.9
 
-      - name: Initialize Terraform
-        working-directory: ./infrastructure
-        run: terraform init -input=false
-
-      - name: Validate Terraform
-        working-directory: ./infrastructure
-        run: terraform validate -no-color
+      - name: Download frontend artifacts
+          uses: actions/download-artifact@v3
+          with:
+            name: frontend
 
       - name: Plan Terraform
         env:
           TF_VAR_allowed_account_id: ${{ secrets.ALLOWED_ACCOUNT_ID }}
         working-directory: ./infrastructure
-        run: terraform plan -input=false -no-color
+        run: |
+          terraform init -input=false
+          terraform validate -no-color
+          terraform plan -input=false -no-color
