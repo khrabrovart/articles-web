@@ -4,6 +4,14 @@ resource "aws_s3_bucket" "frontend" {
 }
 
 resource "aws_s3_object" "directory_content" {
+  bucket = aws_s3_bucket.frontend.bucket
+  key    = "test.txt"
+  source = "${path.module}/templates/s3-policy.json"
+
+  etag = filemd5("${path.module}/templates/s3-policy.json")
+}
+
+resource "aws_s3_object" "directory_content" {
   for_each = fileset(var.content_directory, "**")
 
   bucket = aws_s3_bucket.frontend.bucket
