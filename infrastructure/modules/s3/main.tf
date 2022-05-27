@@ -3,7 +3,7 @@ resource "aws_s3_bucket" "frontend" {
   tags   = var.common_tags
 }
 
-resource "aws_s3_object" "directory_content" {
+resource "aws_s3_object" "some_file" {
   bucket = aws_s3_bucket.frontend.bucket
   key    = "test.txt"
   source = "${path.module}/templates/s3-policy.json"
