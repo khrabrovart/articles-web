@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy Production
 
 on: [workflow_dispatch]
 
@@ -6,7 +6,7 @@ jobs:
   build-frontend:
     name: Build Frontend
     runs-on: ubuntu-latest
-    timeout-minutes: 3
+    timeout-minutes: 5
 
     defaults:
       run:
@@ -43,7 +43,7 @@ jobs:
           if-no-files-found: error
 
   plan:
-    name: Plan
+    name: Plan Deployment
     needs: build-frontend
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -128,7 +128,7 @@ jobs:
           terraform apply -auto-approve -input=false
 
   post-deploy:
-    name: Post-Deploy
+    name: Post-Deployment
     needs: deploy
     runs-on: ubuntu-latest
 
