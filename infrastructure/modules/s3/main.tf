@@ -6,7 +6,7 @@ resource "aws_s3_bucket" "frontend" {
 resource "aws_s3_object" "directory_content" {
   for_each = fileset(var.content_directory, "**")
 
-  bucket = var.bucket_name
+  bucket = aws_s3_bucket.frontend.bucket
   key    = each.value
   source = "${var.content_directory}/${each.value}"
 
