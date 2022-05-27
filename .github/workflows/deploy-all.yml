@@ -34,15 +34,12 @@ jobs:
           yarn install
           yarn build
 
-      - name: ls
-        run: ls -a
-
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
           name: frontend
           retention-days: 1
-          path: ./dist/
+          path: ./frontend/dist/
           if-no-files-found: error
 
   plan-terraform:
