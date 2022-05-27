@@ -82,5 +82,4 @@ jobs:
           TF_VAR_allowed_account_id: ${{ secrets.ALLOWED_ACCOUNT_ID }}
         run: |
           terraform init -input=false
-          terraform validate -no-color
           terraform plan -input=false -no-color

@@ -3,7 +3,7 @@ resource "aws_s3_bucket" "frontend" {
   tags   = var.common_tags
 }
 
-resource "aws_s3_bucket_object" "directory_content" {
+resource "aws_s3_object" "directory_content" {
   for_each = fileset(var.content_directory, "**")
 
   bucket = var.bucket_name
