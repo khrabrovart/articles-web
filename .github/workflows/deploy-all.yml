@@ -10,7 +10,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./frontend
+        working-directory: frontend
 
     steps:
       - name: Clone repository
@@ -39,7 +39,7 @@ jobs:
         with:
           name: frontend
           retention-days: 1
-          path: ./frontend/dist/
+          path: frontend/dist/
           if-no-files-found: error
 
   plan-terraform:
@@ -50,7 +50,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./infrastructure
+        working-directory: infrastructure
 
     permissions:
       id-token: write
