@@ -16,10 +16,14 @@ resource "aws_s3_object" "frontend_content" {
   key          = each.key
   content_type = each.value.content_type
   source       = each.value.source_path
-  tags         = {}
-  metadata     = {}
+  etag         = each.value.digests.md5
 
-  etag = each.value.digests.md5
+  lifecycle {
+    ignore_changes = [
+      tags,
+      metadata,
+    ]
+  }
 }
 
 resource "aws_s3_bucket_policy" "frontend" {
