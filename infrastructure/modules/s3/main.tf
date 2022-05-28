@@ -16,7 +16,10 @@ resource "aws_s3_object" "frontend_content" {
   key          = each.key
   content_type = each.value.content_type
   source       = each.value.source_path
-  etag         = each.value.digests.md5
+  tags         = {}
+  metadata     = {}
+
+  etag = each.value.digests.md5
 }
 
 resource "aws_s3_bucket_policy" "frontend" {
