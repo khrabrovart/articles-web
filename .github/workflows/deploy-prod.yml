@@ -34,7 +34,7 @@ jobs:
           yarn install
           yarn build
 
-      - name: Archive production artifacts
+      - name: Archive artifacts
         uses: actions/upload-artifact@v3
         with:
           name: frontend
@@ -88,7 +88,7 @@ jobs:
           cd build
           zip -r ${{ matrix.project }}.zip *
 
-      - name: Archive production artifacts
+      - name: Archive artifacts
         uses: actions/upload-artifact@v3
         with:
           name: backend
@@ -114,16 +114,9 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v2
 
-      - name: Download frontend artifacts
+      - name: Download artifacts
         uses: actions/download-artifact@v3
         with:
-          name: frontend
-          path: infrastructure/artifacts/frontend
-
-      - name: Download backend artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: backend
           path: infrastructure/artifacts/backend
 
       - name: Configure AWS credentials
@@ -163,11 +156,10 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v2
 
-      - name: Download frontend artifacts
+      - name: Download artifacts
         uses: actions/download-artifact@v3
         with:
-          name: frontend
-          path: infrastructure/artifacts/frontend
+          path: infrastructure/artifacts
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
