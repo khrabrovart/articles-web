@@ -42,6 +42,61 @@ jobs:
           path: frontend/dist/
           if-no-files-found: error
 
+  build-backend:
+    name: Build Backend
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    defaults:
+      run:
+        working-directory: backend
+
+    strategy:
+      matrix:
+        include:
+          - project: ArticlesWeb.Functions.Comments.Get
+            function-name: Articles_Comments_Get
+
+          - project: ArticlesWeb.Functions.Comments.Create
+            function-name: Articles_Comments_Create
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: "6.0.x"
+
+      - name: Cache NuGet packages
+        env:
+          cache-name: cache-nuget-packages
+        uses: actions/cache@v3
+        with:
+          path: "**/.nuget/packages"
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.project }}-${{ hashFiles('**/packages.lock.json') }}
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build project
+        run: dotnet build --configuration Release --no-restore --output build
+
+      - name: Zip project
+        shell: bash
+        run: |
+          cd build
+          zip -r ../${{ matrix.project }}.zip *
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: backend
+          retention-days: 1
+          path: backend/${{ matrix.project }}/build/${{ matrix.project }}.zip
+          if-no-files-found: error
+
   plan:
     name: Plan Deployment
     needs: build-frontend
@@ -83,49 +138,6 @@ jobs:
         run: |
           terraform init -input=false
           terraform plan -input=false -no-color
-
-  refresh-state:
-    name: Refresh Terraform state
-    needs: plan
-    runs-on: ubuntu-latest
-    environment: Production
-    timeout-minutes: 10
-
-    defaults:
-      run:
-        working-directory: infrastructure
-
-    permissions:
-      id-token: write
-      contents: read
-
-    steps:
-      - name: Clone repository
-        uses: actions/checkout@v2
-
-      - name: Download frontend artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: frontend
-          path: infrastructure/artifacts/frontend
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          aws-region: ${{ secrets.AWS_REGION }}
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 1.1.9
-
-      - name: Apply Terraform
-        env:
-          TF_VAR_allowed_account_id: ${{ secrets.ALLOWED_ACCOUNT_ID }}
-        run: |
-          terraform init -input=false
-          terraform apply -auto-approve -input=false -refresh-only
 
   deploy:
     name: Deploy
