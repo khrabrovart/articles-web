@@ -23,6 +23,7 @@ resource "aws_s3_object" "frontend_content" {
       tags,
       metadata,
     ]
+    create_before_destroy = true
   }
 }
 

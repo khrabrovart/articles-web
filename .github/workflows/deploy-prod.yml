@@ -84,6 +84,49 @@ jobs:
           terraform init -input=false
           terraform plan -input=false -no-color
 
+  refresh-state:
+    name: Refresh Terraform state
+    needs: plan
+    runs-on: ubuntu-latest
+    environment: Production
+    timeout-minutes: 10
+
+    defaults:
+      run:
+        working-directory: infrastructure
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: Download frontend artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: frontend
+          path: infrastructure/artifacts/frontend
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.1.9
+
+      - name: Apply Terraform
+        env:
+          TF_VAR_allowed_account_id: ${{ secrets.ALLOWED_ACCOUNT_ID }}
+        run: |
+          terraform init -input=false
+          terraform apply -auto-approve -input=false -refresh-only
+
   deploy:
     name: Deploy
     needs: plan
