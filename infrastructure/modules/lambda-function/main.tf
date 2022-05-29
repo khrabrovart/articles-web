@@ -1,7 +1,3 @@
-locals {
-  stub_file = "${path.module}/stub-function.zip"
-}
-
 resource "aws_iam_role" "lambda" {
   name               = var.function_name
   assume_role_policy = file("${path.module}/lambda-role-policy.json")
@@ -17,21 +13,14 @@ resource "aws_lambda_function" "lambda" {
   function_name = var.function_name
   role          = aws_iam_role.lambda.arn
 
-  filename = local.stub_file
+  filename         = var.source_file
+  source_code_hash = filebase64sha256(var.source_file)
 
   handler = var.function_handler
   runtime = "dotnet6"
   timeout = 5
 
   tags = var.common_tags
-
-  lifecycle {
-    ignore_changes = [
-      last_modified,
-      source_code_hash,
-      source_code_size
-    ]
-  }
 }
 
 resource "aws_cloudwatch_log_group" "lambda" {

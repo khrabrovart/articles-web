@@ -3,6 +3,11 @@ variable "function_name" {
   type        = string
 }
 
+variable "function_source_file" {
+  description = "Lambda function source file"
+  type        = string
+}
+
 variable "function_handler" {
   description = "Lambda function handler"
   type        = string
