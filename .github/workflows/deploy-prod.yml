@@ -53,12 +53,11 @@ jobs:
 
     strategy:
       matrix:
-        include:
-          - project: ArticlesWeb.Functions.Comments.Get
-            function-name: Articles_Comments_Get
-
-          - project: ArticlesWeb.Functions.Comments.Create
-            function-name: Articles_Comments_Create
+        project:
+          [
+            ArticlesWeb.Functions.Comments.Get,
+            ArticlesWeb.Functions.Comments.Create,
+          ]
 
     steps:
       - name: Clone repository
@@ -78,10 +77,10 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.project }}-${{ hashFiles('**/packages.lock.json') }}
 
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore ${{ matrix.project }}
 
       - name: Build project
-        run: dotnet build --configuration Release --no-restore --output build
+        run: dotnet build ${{ matrix.project }} --configuration Release --no-restore --output build
 
       - name: Zip project
         shell: bash
