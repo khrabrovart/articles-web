@@ -98,7 +98,7 @@ jobs:
 
   plan:
     name: Plan Deployment
-    needs: build-frontend
+    needs: [build-frontend, build-backend]
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
