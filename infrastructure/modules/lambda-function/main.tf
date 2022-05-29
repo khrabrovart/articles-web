@@ -13,8 +13,8 @@ resource "aws_lambda_function" "lambda" {
   function_name = var.function_name
   role          = aws_iam_role.lambda.arn
 
-  filename         = var.source_file
-  source_code_hash = filebase64sha256(var.source_file)
+  filename         = var.function_source_file
+  source_code_hash = filebase64sha256(var.function_source_file)
 
   handler = var.function_handler
   runtime = "dotnet6"
