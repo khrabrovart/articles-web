@@ -93,7 +93,7 @@ jobs:
         with:
           name: backend
           retention-days: 1
-          path: backend/${{ matrix.project }}/build/${{ matrix.project }}.zip
+          path: backend/build/${{ matrix.project }}.zip
           if-no-files-found: error
 
   plan:
