@@ -82,18 +82,12 @@ jobs:
       - name: Build project
         run: dotnet build --configuration Release --no-restore --output build
 
-      - name: Zip project
-        shell: bash
-        run: |
-          cd build
-          zip -r ${{ matrix.project }}.zip *
-
       - name: Archive artifacts
         uses: actions/upload-artifact@v3
         with:
           name: backend
           retention-days: 1
-          path: backend/${{ matrix.project }}/build/${{ matrix.project }}.zip
+          path: backend/${{ matrix.project }}/build/
           if-no-files-found: error
 
   plan:

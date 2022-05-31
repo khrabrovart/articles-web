@@ -3,8 +3,8 @@ variable "function_name" {
   type        = string
 }
 
-variable "function_source_file" {
-  description = "Lambda function source file"
+variable "function_source_dir" {
+  description = "Lambda function sources directory"
   type        = string
 }
 

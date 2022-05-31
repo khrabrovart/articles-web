@@ -24,17 +24,17 @@ module "api_gateway" {
 module "lambda_comments_get" {
   source = "./modules/lambda-function"
 
-  function_name        = "Articles_Comments_Get"
-  function_source_file = "./artifacts/backend/ArticlesWeb.Functions.Comments.Get.zip"
-  function_handler     = "ArticlesWeb.Functions.Comments.Get::ArticlesWeb.Functions.Comments.Get.Function::Handler"
-  common_tags          = var.common_tags
+  function_name       = "Articles_Comments_Get"
+  function_source_dir = "./artifacts/backend/ArticlesWeb.Functions.Comments.Get"
+  function_handler    = "ArticlesWeb.Functions.Comments.Get::ArticlesWeb.Functions.Comments.Get.Function::Handler"
+  common_tags         = var.common_tags
 }
 
 module "lambda_comments_create" {
   source = "./modules/lambda-function"
 
-  function_name        = "Articles_Comments_Create"
-  function_source_file = "./artifacts/backend/ArticlesWeb.Functions.Comments.Create.zip"
-  function_handler     = "ArticlesWeb.Functions.Comments.Create::ArticlesWeb.Functions.Comments.Create.Function::Handler"
-  common_tags          = var.common_tags
+  function_name       = "Articles_Comments_Create"
+  function_source_dir = "./artifacts/backend/ArticlesWeb.Functions.Comments.Create"
+  function_handler    = "ArticlesWeb.Functions.Comments.Create::ArticlesWeb.Functions.Comments.Create.Function::Handler"
+  common_tags         = var.common_tags
 }
