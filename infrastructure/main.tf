@@ -14,6 +14,13 @@ module "cloudfront" {
   common_tags      = var.common_tags
 }
 
+module "api_gateway" {
+  source = "./modules/api-gateway"
+
+  api_name    = "Articles_Lambda_Api"
+  common_tags = var.common_tags
+}
+
 module "lambda_comments_get" {
   source = "./modules/lambda-function"
 
