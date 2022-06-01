@@ -31,7 +31,7 @@ module "api_gateway" {
   common_tags = var.common_tags
 }
 
-/* module "api_gateway_integration" {
+module "api_gateway_integration" {
   source = "./modules/api-gateway-integration"
 
   for_each = local.functions
@@ -44,4 +44,4 @@ module "api_gateway" {
 
   integration_method = each.value.http_method
   route_key          = "${each.value.http_method} ${each.value.http_route}"
-} */
+}
