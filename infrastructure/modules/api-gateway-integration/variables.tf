@@ -18,11 +18,6 @@ variable "function_invoke_arn" {
   type        = string
 }
 
-variable "integration_method" {
-  description = "Integration method"
-  type        = string
-}
-
 variable "route_key" {
   description = "API route key"
   type        = string

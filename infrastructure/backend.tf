@@ -2,13 +2,11 @@ locals {
   functions = {
     Articles_Comments_Get = {
       project_name = "ArticlesWeb.Functions.Comments.Get"
-      http_method  = "GET"
-      http_route   = "/comments"
+      http_route   = "GET /comments"
     },
     Articles_Comments_Create = {
       project_name = "ArticlesWeb.Functions.Comments.Create"
-      http_method  = "POST"
-      http_route   = "/comments"
+      http_route   = "POST /comments"
     }
   }
 }
@@ -42,6 +40,5 @@ module "api_gateway_integration" {
   function_name       = each.key
   function_invoke_arn = module.lambda_functions[each.key].invoke_arn
 
-  integration_method = each.value.http_method
-  route_key          = "${each.value.http_method} ${each.value.http_route}"
+  route_key = each.value.http_route
 }
