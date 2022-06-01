@@ -1,0 +1,23 @@
+name: CloudFront Invalidation
+
+on: [workflow_dispatch]
+
+jobs:
+  invalidate-cloudfront:
+    name: Invalidate CloudFront
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Invalidate CloudFront
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths '/*'
