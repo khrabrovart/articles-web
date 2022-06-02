@@ -8,7 +8,7 @@
         <AWSProjectType>Lambda</AWSProjectType>
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
         <PublishReadyToRun>true</PublishReadyToRun>
-        <RootNamespace>ArticlesWeb.Functions.GetComments</RootNamespace>
+        <RootNamespace>ArticlesWeb.Functions.Comments.Create</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

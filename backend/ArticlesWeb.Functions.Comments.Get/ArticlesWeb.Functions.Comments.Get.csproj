@@ -8,12 +8,21 @@
         <AWSProjectType>Lambda</AWSProjectType>
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
         <PublishReadyToRun>true</PublishReadyToRun>
-        <RootNamespace>ArticlesWeb.Functions.GetComments</RootNamespace>
+        <RootNamespace>ArticlesWeb.Functions.Comments.Get</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Amazon.Lambda.APIGatewayEvents" Version="2.4.1" />
         <PackageReference Include="Amazon.Lambda.Core" Version="2.1.0" />
         <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.3.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ArticlesWeb.Core.Entities\ArticlesWeb.Core.Entities.csproj" />
+      <ProjectReference Include="..\ArticlesWeb.Core.Services\ArticlesWeb.Core.Services.csproj" />
+      <ProjectReference Include="..\ArticlesWeb.Functions.Shared\ArticlesWeb.Functions.Shared.csproj" />
     </ItemGroup>
 
 </Project>
