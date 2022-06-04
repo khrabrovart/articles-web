@@ -11,6 +11,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.h3`
+  font-weight: 600;
   font-size: 18pt;
 `;
 
@@ -39,14 +40,14 @@ const ExistingComment = styled.div`
   padding: 10px;
 `;
 
-const ExistingCommentUserFullName = styled.span`
+const ExistingCommentAuthorFullName = styled.span`
   font-size: 12pt;
   font-weight: 600;
 `;
 
-const ExistingCommentUserName = styled.span`
+const ExistingCommentMetadata = styled.span`
   margin-left: 5px;
-  opacity: 0.4;
+  opacity: 0.5;
   font-size: 10pt;
 `;
 
@@ -115,13 +116,13 @@ const ArticleComments = (props: { articleId: number }) => {
         {comments.map((c) => (
           <ExistingComment key={c.id}>
             {c.author.fullName && (
-              <ExistingCommentUserFullName>
+              <ExistingCommentAuthorFullName>
                 {c.author.fullName}
-              </ExistingCommentUserFullName>
+              </ExistingCommentAuthorFullName>
             )}
-            <ExistingCommentUserName>
+            <ExistingCommentMetadata>
               {`@${c.author.userName} on ${formatDate(c.date)}`}
-            </ExistingCommentUserName>
+            </ExistingCommentMetadata>
             <ExistingCommentContent>{c.content}</ExistingCommentContent>
           </ExistingComment>
         ))}

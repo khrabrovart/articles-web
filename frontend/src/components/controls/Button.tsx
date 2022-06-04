@@ -6,7 +6,7 @@ const Container = styled.button`
   color: #fff;
   padding: 10px 25px;
   font-size: 11pt;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 1px;
   border: 0;
   border-radius: 2px;

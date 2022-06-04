@@ -14,29 +14,30 @@ const Container = styled.div`
 const ArticleTitle = styled.h1`
   margin: 0;
   font-size: 25pt;
-  font-weight: bold;
+  font-weight: 600;
 `;
 
 const ArticleImage = styled.img`
-  margin: 30px 0;
+  margin: 40px 0;
   border-radius: 2px;
 `;
 
 const ArticleSection = styled.div`
-  margin-top: 30px;
+  margin-bottom: 20px;
 `;
 
 const ArticleSectionTitle = styled.h3`
   margin: 0;
+  font-weight: 600;
   font-size: 18pt;
 `;
 
 const ArticleSectionContent = styled.p`
-  line-height: 25px;
+  line-height: 27px;
 `;
 
 const ArticleCommentsSeparator = styled.div`
-  margin: 60px 0 20px 0;
+  margin: 40px 0;
   border-bottom: solid 1px #aaa;
 `;
 

@@ -45,7 +45,7 @@ const Nav = styled.nav`
 
 const NavItem = styled(Link)`
   color: #fff;
-  font-weight: bold;
+  font-weight: 600;
   text-decoration: none;
   text-transform: uppercase;
   cursor: pointer;
@@ -63,7 +63,7 @@ const VerticalSeparator = styled.div`
 
 const Button = styled(NavItem)`
   padding: 5px 35px;
-  border: solid 2px #fff;
+  border: solid 1px #fff;
   border-radius: 2px;
   white-space: nowrap;
 `;

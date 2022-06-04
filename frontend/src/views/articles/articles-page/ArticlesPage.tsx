@@ -33,7 +33,7 @@ const ArticlePanel = styled.div<{ imageUrl: string }>`
 
 const ArticlePanelTitle = styled.div`
   font-size: 18pt;
-  font-weight: bold;
+  font-weight: 600;
 `;
 
 const ArticlesPage = () => {
