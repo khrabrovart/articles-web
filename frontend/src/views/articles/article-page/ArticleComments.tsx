@@ -18,7 +18,7 @@ const NewCommentInput = styled.textarea`
   padding: 10px;
   height: 100px;
   font-size: 11pt;
-  border-radius: 5px;
+  border-radius: 2px;
 `;
 
 const NewCommentControls = styled.div`
@@ -35,13 +35,13 @@ const ExistingComments = styled.div`
 const ExistingComment = styled.div`
   background: #f5f5f5;
   margin-top: 20px;
-  border-radius: 5px;
+  border-radius: 2px;
   padding: 10px;
 `;
 
 const ExistingCommentUserFullName = styled.span`
   font-size: 12pt;
-  font-weight: 500;
+  font-weight: 600;
 `;
 
 const ExistingCommentUserName = styled.span`
@@ -81,8 +81,10 @@ const ArticleComments = (props: { articleId: number }) => {
       articleId: props.articleId,
       date: new Date(),
       content: newCommentText,
-      user: {
-        name: "test_user",
+      author: {
+        userId: 100,
+        userImageId: 100,
+        userName: "test_user",
         fullName: "Test User",
       },
     };
@@ -112,13 +114,13 @@ const ArticleComments = (props: { articleId: number }) => {
       <ExistingComments>
         {comments.map((c) => (
           <ExistingComment key={c.id}>
-            {c.user.fullName && (
+            {c.author.fullName && (
               <ExistingCommentUserFullName>
-                {c.user.fullName}
+                {c.author.fullName}
               </ExistingCommentUserFullName>
             )}
             <ExistingCommentUserName>
-              {`@${c.user.name} on ${formatDate(c.date)}`}
+              {`@${c.author.userName} on ${formatDate(c.date)}`}
             </ExistingCommentUserName>
             <ExistingCommentContent>{c.content}</ExistingCommentContent>
           </ExistingComment>

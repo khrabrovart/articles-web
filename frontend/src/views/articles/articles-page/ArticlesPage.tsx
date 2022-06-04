@@ -14,17 +14,17 @@ const ArticlePanel = styled.div<{ imageUrl: string }>`
   padding: 20px;
   height: 330px;
   width: 290px;
-  border-radius: 5px;
-  color: #fdfdfd;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)),
+  border-radius: 2px;
+  color: #fff;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1)),
     url(${(props) => props.imageUrl});
   background-position: center top;
   background-size: cover;
-  box-shadow: 3px 3px 8px #aaa;
+  box-shadow: 3px 3px 5px #aaa;
   cursor: pointer;
 
   &:hover {
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)),
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0)),
       url(${(props) => props.imageUrl});
     background-position: center top;
     background-size: cover;
@@ -36,17 +36,12 @@ const ArticlePanelTitle = styled.div`
   font-weight: bold;
 `;
 
-const ArticlePanelSummary = styled.div`
-  margin-top: 10px;
-  font-size: 14pt;
-`;
-
 const ArticlesPage = () => {
   const navigate = useNavigate();
   const [articles, _] = useArticles();
 
   return (
-    <Page title="Articles">
+    <Page>
       <Container>
         {articles.map((article) => (
           <ArticlePanel
@@ -55,7 +50,6 @@ const ArticlesPage = () => {
             onClick={() => navigate(article.id.toString())}
           >
             <ArticlePanelTitle>{article.title}</ArticlePanelTitle>
-            <ArticlePanelSummary>{article.summary}</ArticlePanelSummary>
           </ArticlePanel>
         ))}
       </Container>

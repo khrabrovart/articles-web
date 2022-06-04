@@ -2,22 +2,26 @@ import React, { MouseEvent } from "react";
 import styled from "styled-components";
 
 const Container = styled.button`
-  background: #4a4a4a;
-  color: #fdfdfd;
-  padding: 10px 20px;
+  background: #222;
+  color: #fff;
+  padding: 10px 25px;
   font-size: 11pt;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 1px;
   border: 0;
-  border-radius: 5px;
+  border-radius: 2px;
   cursor: pointer;
+  font-family: inherit;
+  transition: background 0.05s linear, color 0.05s linear;
 
   &:hover {
-    opacity: 0.7;
+    opacity: 0.8;
   }
 
   &:disabled {
-    opacity: 0.2;
+    background: #f5f5f5;
+    color: #aaa;
+    opacity: 1;
     cursor: default;
   }
 `;

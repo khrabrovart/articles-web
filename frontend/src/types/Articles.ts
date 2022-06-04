@@ -1,7 +1,6 @@
 export interface Article {
   id: number;
   title: string;
-  summary: string;
   sections: ArticleSection[];
   imageUrl: string;
 }
@@ -16,9 +15,10 @@ export interface ArticleComment {
   articleId: number;
   date: Date;
   content: string;
-  user: {
-    name: string;
-    imageUrl?: string;
+  author: {
+    userId: number;
+    userImageId: number;
+    userName: string;
     fullName?: string;
   };
 }

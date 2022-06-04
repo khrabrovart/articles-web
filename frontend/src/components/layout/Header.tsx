@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.header`
+  background: #222;
   padding: 0 30px;
   height: 70px;
   display: flex;
@@ -13,20 +14,19 @@ const Container = styled.header`
 
 const TitleBlock = styled(Link)`
   display: flex;
-  flex-flow: column nowrap;
-  margin-right: 30px;
-  font-weight: bold;
-  text-decoration: none;
-  color: #145eab;
-`;
-
-const TitleTop = styled.div`
+  flex-flow: row nowrap;
+  margin-bottom: 2px;
   font-size: 30pt;
-  height: 40px;
+  text-decoration: none;
+  color: #fff;
 `;
 
-const TitleBottom = styled.div`
-  font-size: 8pt;
+const TitleLeft = styled.div`
+  font-weight: 600;
+`;
+
+const TitleRight = styled.div`
+  font-weight: 100;
 `;
 
 const RightBlock = styled.div`
@@ -44,27 +44,27 @@ const Nav = styled.nav`
 `;
 
 const NavItem = styled(Link)`
-  color: #4a4a4a;
+  color: #fff;
   font-weight: bold;
   text-decoration: none;
   text-transform: uppercase;
   cursor: pointer;
 
   &:hover {
-    opacity: 0.7;
+    opacity: 0.8;
   }
 `;
 
 const VerticalSeparator = styled.div`
   height: 40px;
   margin: 0 30px;
-  border-left: solid 1px #aaa;
+  border-left: solid 1px #fff;
 `;
 
 const Button = styled(NavItem)`
   padding: 5px 35px;
-  border: solid 2px #4a4a4a;
-  border-radius: 5px;
+  border: solid 2px #fff;
+  border-radius: 2px;
   white-space: nowrap;
 `;
 
@@ -72,8 +72,8 @@ const Header = () => {
   return (
     <Container>
       <TitleBlock to="/">
-        <TitleTop>Articles!</TitleTop>
-        <TitleBottom>Read it here. Please...</TitleBottom>
+        <TitleLeft>Articles</TitleLeft>
+        <TitleRight>Website</TitleRight>
       </TitleBlock>
       <RightBlock>
         <Nav>

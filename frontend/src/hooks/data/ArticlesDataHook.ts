@@ -4,7 +4,6 @@ const articles: Article[] = [
   {
     id: 1,
     title: "Tesla Model S",
-    summary: "One of the most rewarding all-electric experiences around",
     sections: [
       {
         title: "What's New for 2022?",
@@ -23,7 +22,6 @@ const articles: Article[] = [
   {
     id: 2,
     title: "Fennec Fox",
-    summary: "The fennec fox is the smallest of all the world's foxes",
     sections: [],
     imageUrl:
       "https://media.wired.com/photos/593261cab8eb31692072f129/master/pass/85120553.jpg",
@@ -31,7 +29,6 @@ const articles: Article[] = [
   {
     id: 3,
     title: "Best CPUs for Gaming 2022",
-    summary: "Here are the best gaming CPUs for the money",
     sections: [],
     imageUrl:
       "https://images.frandroid.com/wp-content/uploads/2020/12/processeur-cpu.jpg",
@@ -39,7 +36,6 @@ const articles: Article[] = [
   {
     id: 4,
     title: "The rise of volleyball",
-    summary: "From humble beginnings to a global sport",
     sections: [],
     imageUrl:
       "https://www.fivb.org/Vis2009/Images/GetImage.asmx?Type=Press&No=90687&width=1410&height=923&stretch=uniformtofill",
@@ -47,8 +43,6 @@ const articles: Article[] = [
   {
     id: 5,
     title: "Best 10 Trails and Hikes in Armenia",
-    summary:
-      "Ready to check out the best trails in Armenia for hiking, mountain biking, climbing or other outdoor activities?",
     sections: [],
     imageUrl:
       "https://daily.jstor.org/wp-content/uploads/2016/10/Moving_Forest_1050_700.jpg",
@@ -56,8 +50,6 @@ const articles: Article[] = [
   {
     id: 6,
     title: "How city life affects your health and happiness",
-    summary:
-      "Links between urban pollution and respiratory diseases drive most calls to clean our cities' air",
     sections: [],
     imageUrl:
       "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Y2l0eXxlbnwwfHwwfHw%3D&w=1000&q=80",

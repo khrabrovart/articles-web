@@ -7,12 +7,13 @@ const Container = styled.footer`
   flex-flow: row no-wrap;
   justify-content: flex-start;
   align-items: center;
-  background: #4a4a4a;
+  background: #222;
 `;
 
 const Content = styled.div`
+  font-size: 10pt;
   margin: 0 0 0 20px;
-  color: #fdfdfd;
+  color: #fff;
 `;
 
 const Footer = () => {

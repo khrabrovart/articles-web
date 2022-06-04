@@ -1,4 +1,3 @@
-export interface Comment {
-  date: Date;
-  content: string;
+export interface ApiResponse<T> {
+  data: T;
 }

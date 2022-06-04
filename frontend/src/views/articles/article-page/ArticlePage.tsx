@@ -6,17 +6,20 @@ import Page from "../../Page";
 import ArticleComments from "./ArticleComments";
 
 const Container = styled.div`
+  padding: 0 200px;
   display: flex;
   flex-flow: column nowrap;
 `;
 
-const ArticleImage = styled.img`
-  border-radius: 5px;
+const ArticleTitle = styled.h1`
+  margin: 0;
+  font-size: 25pt;
+  font-weight: bold;
 `;
 
-const ContentContainer = styled.div`
-  margin-top: 20px;
-  padding: 0 200px;
+const ArticleImage = styled.img`
+  margin: 30px 0;
+  border-radius: 2px;
 `;
 
 const ArticleSection = styled.div`
@@ -24,6 +27,7 @@ const ArticleSection = styled.div`
 `;
 
 const ArticleSectionTitle = styled.h3`
+  margin: 0;
   font-size: 18pt;
 `;
 
@@ -46,19 +50,18 @@ const ArticlePage = () => {
 
     if (article) {
       return (
-        <Page title={article.title} subtitle={article.summary}>
+        <Page>
           <Container>
+            <ArticleTitle>{article.title}</ArticleTitle>
             <ArticleImage src={article.imageUrl} />
-            <ContentContainer>
-              {article.sections.map((as) => (
-                <ArticleSection key={as.title}>
-                  <ArticleSectionTitle>{as.title}</ArticleSectionTitle>
-                  <ArticleSectionContent>{as.content}</ArticleSectionContent>
-                </ArticleSection>
-              ))}
-              <ArticleCommentsSeparator />
-              <ArticleComments articleId={article.id} />
-            </ContentContainer>
+            {article.sections.map((as) => (
+              <ArticleSection key={as.title}>
+                <ArticleSectionTitle>{as.title}</ArticleSectionTitle>
+                <ArticleSectionContent>{as.content}</ArticleSectionContent>
+              </ArticleSection>
+            ))}
+            <ArticleCommentsSeparator />
+            <ArticleComments articleId={article.id} />
           </Container>
         </Page>
       );
