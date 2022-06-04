@@ -27,7 +27,6 @@ locals {
   ]
 }
 
-/*
 module "cloudfront" {
   source = "./modules/cloudfront"
 
@@ -76,4 +75,3 @@ module "cloudfront" {
 
   common_tags = var.common_tags
 }
-*/
