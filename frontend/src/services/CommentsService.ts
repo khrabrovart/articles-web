@@ -1,6 +1,6 @@
 import { ArticleComment } from "../types/Articles";
 import { Comment } from "../types/Server";
-import { httpGet } from "./QueryApiService";
+import { httpGet } from "./QueryService";
 
 export const getArticleComments = async (
   articleId: number
@@ -8,7 +8,7 @@ export const getArticleComments = async (
   const apiComments = await httpGet<Comment[]>("comments");
 
   let i = 0;
-  return apiComments.map((c) => ({
+  return apiComments.map((c: Comment) => ({
     id: i++,
     articleId,
     date: c.date,

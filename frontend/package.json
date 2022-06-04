@@ -7,8 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack serve --port 3000 --history-api-fallback",
-    "build": "NODE_ENV=production webpack",
-    "build:win": "SET NODE_ENV=production&&webpack"
+    "build": "webpack"
   },
   "dependencies": {
     "@types/react": "^18.0.9",

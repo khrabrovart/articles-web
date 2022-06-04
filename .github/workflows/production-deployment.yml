@@ -30,6 +30,8 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
 
       - name: Build project
+        env:
+          NODE_ENV: production
         run: |
           yarn install
           yarn build
