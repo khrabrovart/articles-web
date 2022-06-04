@@ -13,7 +13,7 @@ resource "aws_cloudwatch_log_group" "api" {
 resource "aws_apigatewayv2_stage" "api" {
   api_id = aws_apigatewayv2_api.api.id
 
-  name        = "articles_stage"
+  name        = var.stage_name
   auto_deploy = true
 
   access_log_settings {

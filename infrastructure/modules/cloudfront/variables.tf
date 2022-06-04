@@ -1,11 +1,16 @@
-variable "bucket" {
-  description = "S3 bucket to create distribution for"
-  type        = string
+variable "origins" {
+  description = "Cloudfront origins"
+  type        = list(any)
 }
 
-variable "website_endpoint" {
-  description = "S3 website endpoint"
-  type        = string
+variable "default_cache_behavior" {
+  description = "Cloudfront default cache behavior"
+  type        = any
+}
+
+variable "ordered_cache_behavior" {
+  description = "Cloudfront ordered cache behavior"
+  type        = any
 }
 
 variable "common_tags" {

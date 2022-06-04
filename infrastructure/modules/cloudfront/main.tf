@@ -1,13 +1,59 @@
 resource "aws_cloudfront_distribution" "frontend" {
-  origin {
-    domain_name = var.website_endpoint
-    origin_id   = var.bucket
+  dynamic "origin" {
+    for_each = var.origins
 
-    custom_origin_config {
-      http_port              = "80"
-      https_port             = "443"
-      origin_protocol_policy = "http-only"
-      origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2"]
+    content {
+      domain_name = origin.value.domain_name
+      origin_path = origin.value.origin_path
+      origin_id   = origin.value.origin_id
+
+      custom_origin_config {
+        http_port              = origin.value.custom_origin_config.http_port
+        https_port             = origin.value.custom_origin_config.https_port
+        origin_protocol_policy = origin.value.custom_origin_config.origin_protocol_policy
+        origin_ssl_protocols   = origin.value.custom_origin_config.origin_ssl_protocols
+      }
+    }
+  }
+
+  default_cache_behavior {
+    allowed_methods  = var.default_cache_behavior.allowed_methods
+    cached_methods   = var.default_cache_behavior.cached_methods
+    target_origin_id = var.default_cache_behavior.target_origin_id
+
+    viewer_protocol_policy = var.default_cache_behavior.viewer_protocol_policy
+    min_ttl                = var.default_cache_behavior.min_ttl
+    default_ttl            = var.default_cache_behavior.default_ttl
+    max_ttl                = var.default_cache_behavior.max_ttl
+    compress               = var.default_cache_behavior.compress
+
+    forwarded_values {
+      query_string = var.default_cache_behavior.forwarded_values.query_string
+
+      cookies {
+        forward = var.default_cache_behavior.forwarded_values.cookies.forward
+      }
+    }
+  }
+
+  ordered_cache_behavior {
+    path_pattern     = var.ordered_cache_behavior.path_pattern
+    allowed_methods  = var.ordered_cache_behavior.allowed_methods
+    cached_methods   = var.ordered_cache_behavior.cached_methods
+    target_origin_id = var.ordered_cache_behavior.target_origin_id
+
+    viewer_protocol_policy = var.ordered_cache_behavior.viewer_protocol_policy
+    min_ttl                = var.ordered_cache_behavior.min_ttl
+    default_ttl            = var.ordered_cache_behavior.default_ttl
+    max_ttl                = var.ordered_cache_behavior.max_ttl
+    compress               = var.ordered_cache_behavior.compress
+
+    forwarded_values {
+      query_string = var.ordered_cache_behavior.forwarded_values.query_string
+
+      cookies {
+        forward = var.ordered_cache_behavior.forwarded_values.cookies.forward
+      }
     }
   }
 
@@ -21,26 +67,6 @@ resource "aws_cloudfront_distribution" "frontend" {
     error_code            = 404
     response_code         = 200
     response_page_path    = "/index.html"
-  }
-
-  default_cache_behavior {
-    allowed_methods  = ["GET", "HEAD"]
-    cached_methods   = ["GET", "HEAD"]
-    target_origin_id = var.bucket
-
-    viewer_protocol_policy = "redirect-to-https"
-    min_ttl                = 31536000
-    default_ttl            = 31536000
-    max_ttl                = 31536000
-    compress               = true
-
-    forwarded_values {
-      query_string = false
-
-      cookies {
-        forward = "none"
-      }
-    }
   }
 
   restrictions {
