@@ -1,4 +1,12 @@
 export interface ApiArticleComment {
-  date: Date;
+  id: number;
+  articleId: number;
+  date: string;
   content: string;
+  author: {
+    userId: number;
+    userImageId: number;
+    userName: string;
+    fullName?: string;
+  };
 }

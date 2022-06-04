@@ -29,7 +29,7 @@ public class CommentsService : ICommentsService
                 Id = 1,
                 ArticleId = 1,
                 Date = DateTime.Now,
-                Content = "My 44 year old daughter rates this shot very slick.",
+                Content = "The cabin's atmosphere is nice enough, but it's not nearly as plush as those of our favorites such as the Mercedes-Benz E-class and the Volvo S90.",
                 Author = adamSavage
             },
             new()
@@ -45,7 +45,7 @@ public class CommentsService : ICommentsService
                 Id = 3,
                 ArticleId = 1,
                 Date = DateTime.Now,
-                Content = "Hugely thought out! Mmh wondering if this comment will hit the generator as well...",
+                Content = "With an electric motor dedicated to each of the front and rear axles, the Model S offers full-time all-wheel drive no matter which version you choose. Acceleration of the various models ranges from outstanding to ferocious.",
                 Author = billGates
             },
             new()
