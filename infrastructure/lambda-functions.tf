@@ -26,7 +26,7 @@ module "api_gateway" {
   source = "./modules/api-gateway"
 
   api_name    = "Articles_Lambda_Api"
-  stage_name  = "articles_stage"
+  stage_name  = "ArticlesStage"
   common_tags = var.common_tags
 }
 
