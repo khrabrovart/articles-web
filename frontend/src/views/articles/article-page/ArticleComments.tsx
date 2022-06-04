@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Button from "../../../components/controls/Button";
-import useArticleComments from "../../../hooks/data/ArticleCommentsDataHook";
 import useDateFormatter from "../../../hooks/DateFormatterHook";
+import { getArticleComments } from "../../../services/CommentsService";
 import { ArticleComment } from "../../../types/Articles";
 
 const Container = styled.div`
@@ -57,12 +57,17 @@ const ExistingCommentContent = styled.div`
 `;
 
 const ArticleComments = (props: { articleId: number }) => {
-  const getCommentsByArticleId = useArticleComments();
   const formatDate = useDateFormatter();
   const [newCommentText, setNewCommentText] = useState("");
-  const [comments, setComments] = useState<ArticleComment[]>(
-    getCommentsByArticleId(props.articleId)
-  );
+  const [comments, setComments] = useState<ArticleComment[]>([]);
+
+  useEffect(() => {
+    const loadComments = async () => {
+      const result = await getArticleComments(props.articleId);
+      setComments(result);
+    };
+    loadComments();
+  }, []);
 
   const sendComment = () => {
     if (!newCommentText) {

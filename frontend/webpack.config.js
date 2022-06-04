@@ -1,5 +1,6 @@
 const prod = process.env.NODE_ENV === "production";
 
+const Dotenv = require("dotenv-webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
@@ -29,5 +30,6 @@ module.exports = {
       template: "index.html",
     }),
     new CleanWebpackPlugin(),
+    new Dotenv(),
   ],
 };

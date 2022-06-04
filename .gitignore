@@ -11,6 +11,9 @@
 # Frontend dist directory
 **/frontend/dist/*
 
+# Frontend .env file
+**/frontend/.env
+
 # Backend bin, obj and build (custom folder)
 **/backend/**/bin/*
 **/backend/**/obj/*
