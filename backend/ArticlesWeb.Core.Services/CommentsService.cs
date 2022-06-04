@@ -28,7 +28,7 @@ public class CommentsService : ICommentsService
             {
                 Id = 1,
                 ArticleId = 1,
-                Date = DateTime.Parse("03/05/2022 13:30:00"),
+                Date = DateTime.Now,
                 Content = "My 44 year old daughter rates this shot very slick.",
                 Author = adamSavage
             },
@@ -36,7 +36,7 @@ public class CommentsService : ICommentsService
             {
                 Id = 2,
                 ArticleId = 1,
-                Date = DateTime.Parse("17/05/2022 07:22:16"),
+                Date = DateTime.Now,
                 Content = "I wonder what would have happened if I made this",
                 Author = adamSavage
             },
@@ -44,7 +44,7 @@ public class CommentsService : ICommentsService
             {
                 Id = 3,
                 ArticleId = 1,
-                Date = DateTime.Parse("03/06/2022 17:29:34"),
+                Date = DateTime.Now,
                 Content = "Hugely thought out! Mmh wondering if this comment will hit the generator as well...",
                 Author = billGates
             },
@@ -52,7 +52,7 @@ public class CommentsService : ICommentsService
             {
                 Id = 4,
                 ArticleId = 1,
-                Date = DateTime.Parse("27/09/2021 04:05:21"),
+                Date = DateTime.Now,
                 Content = "Let me take a nap... great atmosphere, anyway.",
                 Author = billGates
             },
