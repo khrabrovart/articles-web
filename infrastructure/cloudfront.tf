@@ -2,7 +2,7 @@ locals {
   origins = [
     {
       domain_name = module.s3.website_endpoint
-      origin_path = "/"
+      origin_path = null
       origin_id   = module.s3.bucket
 
       custom_origin_config = {

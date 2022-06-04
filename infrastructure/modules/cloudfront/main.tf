@@ -1,4 +1,4 @@
-resource "aws_cloudfront_distribution" "frontend" {
+resource "aws_cloudfront_distribution" "cdn" {
   dynamic "origin" {
     for_each = var.origins
 
