@@ -18,6 +18,12 @@ const articles: Article[] = [
     ],
     imageUrl:
       "https://tesla-cdn.thron.com/delivery/public/image/tesla/2391415a-7273-4735-92b2-a37c84c26f04/bvlatuR/std/4096x2560/Homepage-Model-S-Desktop-RHD",
+    author: {
+      userId: 1,
+      userImageId: 1,
+      userName: "adam_savage",
+      fullName: "Adam Savage",
+    },
   },
   {
     id: 2,
@@ -25,6 +31,12 @@ const articles: Article[] = [
     sections: [],
     imageUrl:
       "https://media.wired.com/photos/593261cab8eb31692072f129/master/pass/85120553.jpg",
+    author: {
+      userId: 1,
+      userImageId: 1,
+      userName: "adam_savage",
+      fullName: "Adam Savage",
+    },
   },
   {
     id: 3,
@@ -32,6 +44,12 @@ const articles: Article[] = [
     sections: [],
     imageUrl:
       "https://images.frandroid.com/wp-content/uploads/2020/12/processeur-cpu.jpg",
+    author: {
+      userId: 1,
+      userImageId: 1,
+      userName: "adam_savage",
+      fullName: "Adam Savage",
+    },
   },
   {
     id: 4,
@@ -39,6 +57,12 @@ const articles: Article[] = [
     sections: [],
     imageUrl:
       "https://www.fivb.org/Vis2009/Images/GetImage.asmx?Type=Press&No=90687&width=1410&height=923&stretch=uniformtofill",
+    author: {
+      userId: 1,
+      userImageId: 1,
+      userName: "adam_savage",
+      fullName: "Adam Savage",
+    },
   },
   {
     id: 5,
@@ -46,6 +70,12 @@ const articles: Article[] = [
     sections: [],
     imageUrl:
       "https://daily.jstor.org/wp-content/uploads/2016/10/Moving_Forest_1050_700.jpg",
+    author: {
+      userId: 1,
+      userImageId: 1,
+      userName: "adam_savage",
+      fullName: "Adam Savage",
+    },
   },
   {
     id: 6,
@@ -53,6 +83,12 @@ const articles: Article[] = [
     sections: [],
     imageUrl:
       "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Y2l0eXxlbnwwfHwwfHw%3D&w=1000&q=80",
+    author: {
+      userId: 1,
+      userImageId: 1,
+      userName: "adam_savage",
+      fullName: "Adam Savage",
+    },
   },
 ];
 

@@ -3,6 +3,12 @@ export interface Article {
   title: string;
   sections: ArticleSection[];
   imageUrl: string;
+  author: {
+    userId: number;
+    userImageId: number;
+    userName: string;
+    fullName?: string;
+  };
 }
 
 export interface ArticleSection {

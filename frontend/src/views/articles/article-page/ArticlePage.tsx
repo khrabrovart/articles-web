@@ -4,6 +4,7 @@ import styled from "styled-components";
 import useArticles from "../../../hooks/data/ArticlesDataHook";
 import Page from "../../Page";
 import ArticleComments from "./ArticleComments";
+import ImagePlaceholder from "../../../components/utils/ImagePlaceholder";
 
 const Container = styled.div`
   padding: 0 200px;
@@ -17,9 +18,11 @@ const ArticleTitle = styled.h1`
   font-weight: 600;
 `;
 
-const ArticleImage = styled.img`
+const ArticleImage = styled(ImagePlaceholder)`
   margin: 40px 0;
   border-radius: 2px;
+  height: 500px;
+  object-fit: cover;
 `;
 
 const ArticleSection = styled.div`

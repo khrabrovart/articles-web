@@ -20,6 +20,7 @@ const NewCommentInput = styled.textarea`
   height: 100px;
   font-size: 11pt;
   border-radius: 2px;
+  font-family: inherit;
 `;
 
 const NewCommentControls = styled.div`

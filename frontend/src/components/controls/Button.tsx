@@ -12,7 +12,7 @@ const Container = styled.button`
   border-radius: 2px;
   cursor: pointer;
   font-family: inherit;
-  transition: background 0.05s linear, color 0.05s linear;
+  transition: background 0.1s linear, color 0.1s linear, opacity 0.05s linear;
 
   &:hover {
     opacity: 0.8;

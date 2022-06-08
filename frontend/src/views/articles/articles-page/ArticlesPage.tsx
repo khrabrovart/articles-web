@@ -11,29 +11,38 @@ const Container = styled.div`
 `;
 
 const ArticlePanel = styled.div<{ imageUrl: string }>`
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
   padding: 20px;
   height: 330px;
   width: 290px;
   border-radius: 2px;
   color: #fff;
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1)),
-    url(${(props) => props.imageUrl});
+  background: url(${(props) => props.imageUrl});
   background-position: center top;
   background-size: cover;
-  box-shadow: 3px 3px 5px #aaa;
+  box-shadow: 0 0 5px #aaa;
   cursor: pointer;
 
+  top: 0;
+  position: relative;
+  transition: top ease-in 0.15s, box-shadow ease-in 0.15s;
+
   &:hover {
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0)),
-      url(${(props) => props.imageUrl});
-    background-position: center top;
-    background-size: cover;
+    box-shadow: 0 5px 10px #aaa;
+    top: -5px;
   }
 `;
 
 const ArticlePanelTitle = styled.div`
   font-size: 18pt;
   font-weight: 600;
+`;
+
+const ArticlePanelMetadata = styled.div`
+  font-size: 10pt;
+  font-weight: 500;
 `;
 
 const ArticlesPage = () => {
@@ -50,6 +59,9 @@ const ArticlesPage = () => {
             onClick={() => navigate(article.id.toString())}
           >
             <ArticlePanelTitle>{article.title}</ArticlePanelTitle>
+            <ArticlePanelMetadata>
+              {article.author.fullName}
+            </ArticlePanelMetadata>
           </ArticlePanel>
         ))}
       </Container>
