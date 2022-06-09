@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const Container = styled.header`
   background: #222;
-  padding: 0 30px;
+  padding: 0 30px 0 20px;
   height: 70px;
   display: flex;
   flex-flow: row nowrap;
