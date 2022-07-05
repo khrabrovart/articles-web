@@ -28,9 +28,10 @@ resource "aws_lambda_function" "lambda" {
   filename         = data.archive_file.lambda_zip.output_path
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
 
-  handler = var.function_handler
-  runtime = "dotnet6"
-  timeout = 5
+  handler     = var.function_handler
+  runtime     = "dotnet6"
+  timeout     = 5
+  memory_size = 256
 
   tags = var.common_tags
 
