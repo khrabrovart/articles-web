@@ -6,7 +6,7 @@ data "archive_file" "lambda_zip" {
 
 resource "aws_iam_role" "lambda" {
   name               = var.function_name
-  assume_role_policy = file("${path.module}/lambda-role-policy.json")
+  assume_role_policy = file("${path.module}/assume-role-policy.json")
   tags               = var.common_tags
 }
 
