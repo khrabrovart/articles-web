@@ -4,6 +4,7 @@
     {
       "Effect": "Allow",
       "Action": [
+        "dynamodb:ListTables",
         "dynamodb:BatchGetItem",
         "dynamodb:GetItem",
         "dynamodb:Query",
