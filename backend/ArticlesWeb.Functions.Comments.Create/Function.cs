@@ -33,7 +33,7 @@ public class Function
 
         await c.PutItemAsync("comments", new Dictionary<string, AttributeValue>
         {
-            {"key1", new AttributeValue("val1")}
+            {"id", new AttributeValue { N = "1"}}
         });
 
         LambdaLogger.Log("Item saved");

@@ -10,6 +10,13 @@ resource "aws_iam_role" "lambda" {
   tags               = var.common_tags
 }
 
+resource "aws_iam_role_policy" "lambda_policy" {
+  name   = "LambdaGeneralPolicy"
+  role   = aws_iam_role.lambda.name
+  policy = file("${path.module}/policy.json")
+  tags   = var.common_tags
+}
+
 resource "aws_iam_role_policy_attachment" "lambda_basic_policy" {
   role       = aws_iam_role.lambda.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
