@@ -14,7 +14,12 @@
     <ItemGroup>
         <PackageReference Include="Amazon.Lambda.Core" Version="2.1.0" />
         <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.3.0" />
-        <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.3.46" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ArticlesWeb.Core.Entities\ArticlesWeb.Core.Entities.csproj" />
+      <ProjectReference Include="..\ArticlesWeb.Core.Services\ArticlesWeb.Core.Services.csproj" />
+      <ProjectReference Include="..\ArticlesWeb.Functions.Shared\ArticlesWeb.Functions.Shared.csproj" />
     </ItemGroup>
 
 </Project>
