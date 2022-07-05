@@ -12,16 +12,31 @@ namespace ArticlesWeb.Functions.Comments.Create;
 
 public class Function
 {
-    public async Task<APIGatewayProxyResponse> Handler(string input, ILambdaContext ctx)
+    public async Task<APIGatewayProxyResponse> Handler(APIGatewayProxyRequest request, ILambdaContext ctx)
     {
-        LambdaLogger.Log("Some message in logs");
+        LambdaLogger.Log("Function start");
 
-        var c = new AmazonDynamoDBClient(RegionEndpoint.USEast1);
+        LambdaLogger.Log(request.Body);
+
+        using var c = new AmazonDynamoDBClient(RegionEndpoint.USEast1);
+
+        LambdaLogger.Log("Client created");
+
+        var tables = await c.ListTablesAsync(10);
+
+        LambdaLogger.Log("Tables list");
+
+        foreach (var table in tables.TableNames)
+        {
+            LambdaLogger.Log($"Table: {table}");
+        }
 
         await c.PutItemAsync("comments", new Dictionary<string, AttributeValue>
         {
             {"key1", new AttributeValue("val1")}
         });
+
+        LambdaLogger.Log("Item saved");
 
         return APIGatewayHelpers.BuildResponse("successful response 111");
     }
