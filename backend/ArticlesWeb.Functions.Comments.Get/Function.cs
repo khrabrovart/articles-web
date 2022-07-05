@@ -1,4 +1,6 @@
-﻿using Amazon.Lambda.APIGatewayEvents;
+﻿using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
+using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.Serialization.SystemTextJson;
 using ArticlesWeb.Core.Entities;
@@ -13,11 +15,16 @@ namespace ArticlesWeb.Functions.Comments.Get;
 public class Function
 {
     private readonly ICommentsService _commentsService;
+    private readonly IDynamoDBContext _dbContext;
 
     public Function()
     {
-        var serviceProvider = ConfigureServices();
+        var serviceCollection = new ServiceCollection();
+        ConfigureServices(serviceCollection);
+        var serviceProvider = serviceCollection.BuildServiceProvider();
+
         _commentsService = serviceProvider.GetService<ICommentsService>();
+        _dbContext = serviceProvider.GetService<IDynamoDBContext>();
     }
 
     public async Task<APIGatewayProxyResponse> Handler(APIGatewayProxyRequest request, ILambdaContext ctx)
@@ -26,11 +33,20 @@ public class Function
         return APIGatewayHelpers.BuildResponse(comments);
     }
 
-    private static IServiceProvider ConfigureServices()
+    private static IServiceProvider ConfigureServices(IServiceCollection services)
     {
-        var serviceCollection = new ServiceCollection();
-        serviceCollection.AddTransient<ICommentsService, CommentsService>();
+        services.AddTransient<ICommentsService, CommentsService>();
 
-        return serviceCollection.BuildServiceProvider();
+        var dbConfig = new AmazonDynamoDBConfig
+        {
+            ServiceURL = "dynamodb.us-east-1.amazonaws.com"
+        };
+
+        var dbClient = new AmazonDynamoDBClient(dbConfig);
+        var dbContext = new DynamoDBContext(dbClient);
+
+        services.AddSingleton<IDynamoDBContext>(dbContext);
+
+        return services.BuildServiceProvider();
     }
 }

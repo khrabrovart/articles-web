@@ -16,6 +16,20 @@
         "dependencies": {
           "Amazon.Lambda.Core": "2.1.0"
         }
+      },
+      "AWSSDK.DynamoDBv2": {
+        "type": "Direct",
+        "requested": "[3.7.3.46, )",
+        "resolved": "3.7.3.46",
+        "contentHash": "TuoljOIuibzjVPSvl/30aQhduY+UA58ZuoWYDVRrDRDeBUknDnRFu920hEVCCHuLEUF95ZBi9aZz69ePWoTH4g==",
+        "dependencies": {
+          "AWSSDK.Core": "[3.7.11.14, 4.0.0)"
+        }
+      },
+      "AWSSDK.Core": {
+        "type": "Transitive",
+        "resolved": "3.7.11.14",
+        "contentHash": "uIHHB/qz8b3pwAzsYLakaWAZJSP7SbWicJN/YIz+/nH/r/UrQ79ifZKLOqmbVPvusvH0i1dB2HXEv7H3KEiqVA=="
       }
     }
   }
