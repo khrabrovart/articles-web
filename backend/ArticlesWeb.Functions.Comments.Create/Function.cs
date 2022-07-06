@@ -27,6 +27,6 @@ public class Function
         var request = apiRequest.GetBody<CreateCommentRequest>();
         await _commentsService.Create(request.ArticleId, request.Content);
 
-        return APIGatewayHelpers.BuildResponse();
+        return APIGatewayResponse.Created();
     }
 }

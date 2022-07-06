@@ -27,6 +27,6 @@ public class Function
         var article = await _articlesService.Get(articleId);
         var response = new ArticleModel(article);
 
-        return APIGatewayHelpers.BuildResponse(response);
+        return APIGatewayResponse.Ok(response);
     }
 }

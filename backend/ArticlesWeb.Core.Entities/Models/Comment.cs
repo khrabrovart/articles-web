@@ -10,15 +10,15 @@ public class Comment
         AuthorId = Guid.NewGuid();
     }
 
-    public Comment()
+    protected Comment()
     {
     }
 
-    public Guid Id { get; set; }
+    public Guid Id { get; private set; }
 
-    public DateTime CreatedOn { get; set; }
+    public DateTime CreatedOn { get; private set; }
 
-    public string Content { get; set; }
+    public string Content { get; private set; }
 
-    public Guid AuthorId { get; set; }
+    public Guid AuthorId { get; private set; }
 }

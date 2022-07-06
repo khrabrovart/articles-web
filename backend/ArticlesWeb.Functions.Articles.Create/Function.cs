@@ -27,6 +27,6 @@ public class Function
         var request = apiRequest.GetBody<CreateArticleRequest>();
         await _articlesService.Create(request.Title);
 
-        return APIGatewayHelpers.BuildResponse();
+        return APIGatewayResponse.Created();
     }
 }

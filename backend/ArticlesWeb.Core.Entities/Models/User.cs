@@ -12,25 +12,20 @@ public class User
         Username = username;
     }
 
-    public User()
+    protected User()
     {
     }
 
     [DynamoDBHashKey]
-    public Guid Id { get; set; }
+    public Guid Id { get; private set; }
 
-    [DynamoDBProperty]
-    public DateTime CreatedOn { get; set; }
+    public DateTime CreatedOn { get; private set; }
 
-    [DynamoDBProperty]
-    public string Username { get; set; }
+    public string Username { get; private set; }
 
-    [DynamoDBProperty]
-    public string FirstName { get; set; }
+    public string FirstName { get; private set; }
 
-    [DynamoDBProperty]
-    public string LastName { get; set; }
+    public string LastName { get; private set; }
 
-    [DynamoDBProperty]
-    public string Email { get; set; }
+    public string Email { get; private set; }
 }

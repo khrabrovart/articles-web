@@ -10,21 +10,6 @@ public static class APIGatewayHelpers
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     };
 
-    public static T GetBody<T>(this APIGatewayProxyRequest request) => GetRequestBody<T>(request);
-
-    public static T GetRequestBody<T>(APIGatewayProxyRequest request) =>
+    public static T GetBody<T>(this APIGatewayProxyRequest request) =>
         JsonSerializer.Deserialize<T>(request.Body, SerializerOptions);
-
-    public static APIGatewayProxyResponse BuildResponse(object response) =>
-        new()
-        {
-            Body = JsonSerializer.Serialize(response, SerializerOptions),
-            StatusCode = 200,
-            Headers = new Dictionary<string, string>
-            {
-                {"content-type", "application/json"}
-            }
-        };
-
-    public static APIGatewayProxyResponse BuildResponse() => BuildResponse(null);
 }

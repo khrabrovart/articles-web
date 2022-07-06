@@ -13,16 +13,16 @@ public class Article
         Comments = new List<Comment>();
     }
 
-    public Article()
+    protected Article()
     {
     }
 
     [DynamoDBHashKey]
-    public Guid Id { get; set; }
+    public Guid Id { get; private set; }
 
-    public DateTime CreatedOn { get; set; }
+    public DateTime CreatedOn { get; private set; }
 
-    public string Title { get; set; }
+    public string Title { get; private set; }
 
-    public List<Comment> Comments { get; set; }
+    public List<Comment> Comments { get; private set; }
 }
