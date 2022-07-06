@@ -5,10 +5,10 @@ namespace ArticlesWeb.Core.Entities;
 public class CommentAuthor
 {
     [DynamoDBProperty]
-    public int UserId { get; set; }
+    public string UserId { get; set; }
 
     [DynamoDBProperty]
-    public int UserImageId { get; set; }
+    public string UserImageId { get; set; }
 
     [DynamoDBProperty]
     public string UserName { get; set; }

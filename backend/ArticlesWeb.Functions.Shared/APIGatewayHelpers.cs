@@ -3,12 +3,14 @@ using Amazon.Lambda.APIGatewayEvents;
 
 namespace ArticlesWeb.Functions.Shared;
 
-public class APIGatewayHelpers
+public static class APIGatewayHelpers
 {
     private static readonly JsonSerializerOptions SerializerOptions = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     };
+
+    public static T GetBody<T>(this APIGatewayProxyRequest request) => GetRequestBody<T>(request);
 
     public static T GetRequestBody<T>(APIGatewayProxyRequest request) =>
         JsonSerializer.Deserialize<T>(request.Body, SerializerOptions);

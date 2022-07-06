@@ -2,14 +2,27 @@
 
 namespace ArticlesWeb.Core.Entities;
 
-[DynamoDBTable("comments")]
+[DynamoDBTable("comments", lowerCamelCaseProperties: true)]
 public class Comment
 {
+    public Comment(string articleId, string content, string authorId)
+    {
+        Id = Guid.NewGuid().ToString();
+        ArticleId = articleId;
+        Date = DateTime.UtcNow;
+        Content = content;
+        AuthorId = authorId;
+    }
+
+    public Comment()
+    {
+    }
+
     [DynamoDBHashKey]
-    public int Id { get; set; }
+    public string Id { get; set; }
 
     [DynamoDBProperty]
-    public int ArticleId { get; set; }
+    public string ArticleId { get; set; }
 
     [DynamoDBProperty]
     public DateTime Date { get; set; }
@@ -18,5 +31,5 @@ public class Comment
     public string Content { get; set; }
 
     [DynamoDBProperty]
-    public CommentAuthor Author { get; set; }
+    public string AuthorId { get; set; }
 }

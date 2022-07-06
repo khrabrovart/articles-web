@@ -1,9 +1,8 @@
-﻿using Amazon;
-using Amazon.DynamoDBv2;
-using Amazon.DynamoDBv2.Model;
-using Amazon.Lambda.APIGatewayEvents;
+﻿using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.Serialization.SystemTextJson;
+using ArticlesWeb.Core.Services;
+using ArticlesWeb.Functions.Comments.Create.Models;
 using ArticlesWeb.Functions.Shared;
 
 [assembly: LambdaSerializer(typeof(DefaultLambdaJsonSerializer))]
@@ -12,32 +11,15 @@ namespace ArticlesWeb.Functions.Comments.Create;
 
 public class Function
 {
-    public async Task<APIGatewayProxyResponse> Handler(APIGatewayProxyRequest request, ILambdaContext ctx)
+    public async Task<APIGatewayProxyResponse> Handler(APIGatewayProxyRequest apiRequest, ILambdaContext ctx)
     {
-        LambdaLogger.Log("Function start");
+        LambdaLogger.Log(apiRequest.Body);
 
-        LambdaLogger.Log(request.Body);
+        var request = apiRequest.GetBody<CreateCommentRequest>();
+        var service = new CommentsService();
 
-        using var c = new AmazonDynamoDBClient(RegionEndpoint.USEast1);
+        var comment = await service.Save(request.Content);
 
-        LambdaLogger.Log("Client created");
-
-        var tables = await c.ListTablesAsync(10);
-
-        LambdaLogger.Log("Tables list");
-
-        foreach (var table in tables.TableNames)
-        {
-            LambdaLogger.Log($"Table: {table}");
-        }
-
-        await c.PutItemAsync("comments", new Dictionary<string, AttributeValue>
-        {
-            {"id", new AttributeValue { N = "1"}}
-        });
-
-        LambdaLogger.Log("Item saved");
-
-        return APIGatewayHelpers.BuildResponse("successful response 111");
+        return APIGatewayHelpers.BuildResponse(comment);
     }
 }
