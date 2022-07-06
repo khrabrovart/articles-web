@@ -13,7 +13,7 @@ public class Article
         Comments = new List<Comment>();
     }
 
-    protected Article()
+    public Article()
     {
     }
 

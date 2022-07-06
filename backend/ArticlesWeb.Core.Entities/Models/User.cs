@@ -12,7 +12,7 @@ public class User
         Username = username;
     }
 
-    protected User()
+    public User()
     {
     }
 
