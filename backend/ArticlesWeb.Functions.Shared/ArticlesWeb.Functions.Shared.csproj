@@ -7,6 +7,8 @@
 
     <ItemGroup>
       <PackageReference Include="Amazon.Lambda.APIGatewayEvents" Version="2.4.1" />
+      <PackageReference Include="Amazon.Lambda.Core" Version="2.1.0" />
+      <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.3.0" />
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
@@ -16,6 +18,11 @@
       <None Update="appsettings.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ArticlesWeb.Core.Entities\ArticlesWeb.Core.Entities.csproj" />
+      <ProjectReference Include="..\ArticlesWeb.Core.Services\ArticlesWeb.Core.Services.csproj" />
     </ItemGroup>
 
 </Project>

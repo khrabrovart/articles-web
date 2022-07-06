@@ -1,5 +1,4 @@
 ﻿using Amazon.Lambda.APIGatewayEvents;
-using ArticlesWeb.Functions.Comments.Get;
 
 namespace ArticlesWeb.Functions.Tests;
 
@@ -7,13 +6,6 @@ public class Program
 {
     public static async Task Main(string[] args)
     {
-        var function = new Function();
-
-        var request = await GetRequest(function.GetType().Namespace);
-        var response = await function.Handler(request, null);
-
-        Console.WriteLine($"Status code: {response.StatusCode}\n" +
-                          $"Response: {response.Body}");
     }
 
     private static async Task<APIGatewayProxyRequest> GetRequest(string templateName)

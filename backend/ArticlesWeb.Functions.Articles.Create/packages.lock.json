@@ -2,35 +2,23 @@
   "version": 1,
   "dependencies": {
     "net6.0": {
+      "Amazon.Lambda.APIGatewayEvents": {
+        "type": "Transitive",
+        "resolved": "2.4.1",
+        "contentHash": "prPB5BiVV21Cd1FxJwsko8T2/1wO/2ycoMSUKFUl3pE7q6ZOQzwbUqrOMKUpL/Qv1OxxY8E37XKcl7PWNwc8fg=="
+      },
       "Amazon.Lambda.Core": {
-        "type": "Direct",
-        "requested": "[2.1.0, )",
+        "type": "Transitive",
         "resolved": "2.1.0",
         "contentHash": "ok06UhfBZw6j6+PhiJR9C0EOMuJvnq8rMCHVkaFmPFrlI/q447ukwGZQKaAKqodV+MNTfpb/iPxjgUPVbSlVVw=="
       },
       "Amazon.Lambda.Serialization.SystemTextJson": {
-        "type": "Direct",
-        "requested": "[2.3.0, )",
+        "type": "Transitive",
         "resolved": "2.3.0",
         "contentHash": "qgFCDJp5lyUNqCq1z18U7fZ/+rmMyw6RJf9nKfnJrf79YupDj02klQAjxymEYN66NykWXyc68SGkow6fy53hfg==",
         "dependencies": {
           "Amazon.Lambda.Core": "2.1.0"
         }
-      },
-      "Microsoft.Extensions.DependencyInjection": {
-        "type": "Direct",
-        "requested": "[6.0.0, )",
-        "resolved": "6.0.0",
-        "contentHash": "k6PWQMuoBDGGHOQTtyois2u4AwyVcIwL2LaSLlTZQm2CYcJ1pxbt6jfAnpWmzENA/wfrYRI/X9DTLoUkE4AsLw==",
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0",
-          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
-        }
-      },
-      "Amazon.Lambda.APIGatewayEvents": {
-        "type": "Transitive",
-        "resolved": "2.4.1",
-        "contentHash": "prPB5BiVV21Cd1FxJwsko8T2/1wO/2ycoMSUKFUl3pE7q6ZOQzwbUqrOMKUpL/Qv1OxxY8E37XKcl7PWNwc8fg=="
       },
       "AWSSDK.Core": {
         "type": "Transitive",
@@ -121,6 +109,15 @@
           "Microsoft.Extensions.Configuration.Json": "6.0.0",
           "Microsoft.Extensions.FileProviders.Abstractions": "6.0.0",
           "Microsoft.Extensions.FileProviders.Physical": "6.0.0"
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection": {
+        "type": "Transitive",
+        "resolved": "6.0.0",
+        "contentHash": "k6PWQMuoBDGGHOQTtyois2u4AwyVcIwL2LaSLlTZQm2CYcJ1pxbt6jfAnpWmzENA/wfrYRI/X9DTLoUkE4AsLw==",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0",
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
         }
       },
       "Microsoft.Extensions.DependencyInjection.Abstractions": {
@@ -355,6 +352,10 @@
         "type": "Project",
         "dependencies": {
           "Amazon.Lambda.APIGatewayEvents": "2.4.1",
+          "Amazon.Lambda.Core": "2.1.0",
+          "Amazon.Lambda.Serialization.SystemTextJson": "2.3.0",
+          "ArticlesWeb.Core.Entities": "1.0.0",
+          "ArticlesWeb.Core.Services": "1.0.0",
           "Microsoft.Extensions.Configuration": "6.0.1",
           "Microsoft.Extensions.Hosting": "6.0.1",
           "Newtonsoft.Json": "13.0.1"

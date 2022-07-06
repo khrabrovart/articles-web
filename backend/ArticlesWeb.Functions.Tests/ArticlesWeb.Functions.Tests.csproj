@@ -8,7 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ArticlesWeb.Functions.Comments.Create\ArticlesWeb.Functions.Comments.Create.csproj" />
-      <ProjectReference Include="..\ArticlesWeb.Functions.Comments.Get\ArticlesWeb.Functions.Comments.Get.csproj" />
+      <ProjectReference Include="..\ArticlesWeb.Functions.Articles.Get\ArticlesWeb.Functions.Articles.Get.csproj" />
     </ItemGroup>
 
     <ItemGroup>

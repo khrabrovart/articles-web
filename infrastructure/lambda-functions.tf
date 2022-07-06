@@ -1,13 +1,19 @@
 locals {
   functions = {
-    Articles_Comments_Get = {
-      project_name = "ArticlesWeb.Functions.Comments.Get"
-      http_route   = "GET /api/comments"
-    },
     Articles_Comments_Create = {
       project_name = "ArticlesWeb.Functions.Comments.Create"
       http_route   = "POST /api/comments"
-    }
+    },
+
+    Articles_Articles_Create = {
+      project_name = "ArticlesWeb.Functions.Articles.Create"
+      http_route   = "POST /api/articles"
+    },
+
+    Articles_Articles_Get = {
+      project_name = "ArticlesWeb.Functions.Articles.Get"
+      http_route   = "GET /api/articles"
+    },
   }
 }
 

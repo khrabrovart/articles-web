@@ -2,7 +2,5 @@
 
 public interface ICommentsService
 {
-    Task<Comment> Save(string content);
-
-    Task<IReadOnlyCollection<Comment>> Get(string articleId);
+    Task Create(Guid articleId, string content);
 }

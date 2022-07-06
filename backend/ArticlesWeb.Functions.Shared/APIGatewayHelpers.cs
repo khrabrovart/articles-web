@@ -25,4 +25,6 @@ public static class APIGatewayHelpers
                 {"content-type", "application/json"}
             }
         };
+
+    public static APIGatewayProxyResponse BuildResponse() => BuildResponse(null);
 }
