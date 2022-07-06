@@ -15,7 +15,6 @@ namespace ArticlesWeb.Functions.Comments.Get;
 public class Function
 {
     private readonly ICommentsService _commentsService;
-    private readonly IDynamoDBContext _dbContext;
 
     public Function()
     {
@@ -24,28 +23,18 @@ public class Function
         var serviceProvider = serviceCollection.BuildServiceProvider();
 
         _commentsService = serviceProvider.GetService<ICommentsService>();
-        _dbContext = serviceProvider.GetService<IDynamoDBContext>();
     }
 
-    public async Task<APIGatewayProxyResponse> Handler(APIGatewayProxyRequest request, ILambdaContext ctx)
+    public async Task<APIGatewayProxyResponse> Handler(APIGatewayProxyRequest apiRequest, ILambdaContext ctx)
     {
-        var comments = await _commentsService.Get(1);
+        var comments = await _commentsService.Get("d13109b0-6085-4bbf-9a5e-0b4d6da2c600");
         return APIGatewayHelpers.BuildResponse(comments);
     }
 
     private static IServiceProvider ConfigureServices(IServiceCollection services)
     {
         services.AddTransient<ICommentsService, CommentsService>();
-
-        var dbConfig = new AmazonDynamoDBConfig
-        {
-            ServiceURL = "dynamodb.us-east-1.amazonaws.com"
-        };
-
-        var dbClient = new AmazonDynamoDBClient(dbConfig);
-        var dbContext = new DynamoDBContext(dbClient);
-
-        services.AddSingleton<IDynamoDBContext>(dbContext);
+        services.AddSingleton(_ => new AmazonDynamoDBClient());
 
         return services.BuildServiceProvider();
     }

@@ -21,7 +21,7 @@ public class CommentsService : ICommentsService
         return comment;
     }
 
-    public async Task<IReadOnlyCollection<Comment>> Get(int articleId)
+    public async Task<IReadOnlyCollection<Comment>> Get(string articleId)
     {
         var adamSavage = new CommentAuthor
         {

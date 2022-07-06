@@ -4,5 +4,5 @@ public interface ICommentsService
 {
     Task<Comment> Save(string content);
 
-    Task<IReadOnlyCollection<Comment>> Get(int articleId);
+    Task<IReadOnlyCollection<Comment>> Get(string articleId);
 }
