@@ -1,4 +1,5 @@
-﻿using Amazon.DynamoDBv2;
+﻿using Amazon;
+using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
@@ -34,7 +35,7 @@ public class Function
     private static IServiceProvider ConfigureServices(IServiceCollection services)
     {
         services.AddTransient<ICommentsService, CommentsService>();
-        services.AddSingleton(_ => new AmazonDynamoDBClient());
+        services.AddSingleton(_ => new AmazonDynamoDBClient(RegionEndpoint.USEast1));
 
         return services.BuildServiceProvider();
     }

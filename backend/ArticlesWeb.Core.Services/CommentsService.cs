@@ -1,5 +1,4 @@
-﻿using Amazon;
-using Amazon.DynamoDBv2;
+﻿using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using ArticlesWeb.Core.Entities;
 
@@ -7,7 +6,13 @@ namespace ArticlesWeb.Core.Services;
 
 public class CommentsService : ICommentsService
 {
-    private static readonly AmazonDynamoDBClient _dbClient = new AmazonDynamoDBClient(RegionEndpoint.USEast1);
+    private readonly AmazonDynamoDBClient _dbClient;
+
+    public CommentsService(AmazonDynamoDBClient dbClient)
+    {
+        _dbClient = dbClient;
+    }
+
     public async Task<Comment> Save(string content)
     {
         var dbContext = new DynamoDBContext(_dbClient);
