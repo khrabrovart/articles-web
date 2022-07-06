@@ -1,6 +1,4 @@
-﻿using Amazon.DynamoDBv2.DataModel;
-
-namespace ArticlesWeb.Core.Entities;
+﻿namespace ArticlesWeb.Core.Entities;
 
 public class Comment
 {
@@ -10,6 +8,10 @@ public class Comment
         CreatedOn = DateTime.UtcNow;
         Content = content;
         AuthorId = Guid.NewGuid();
+    }
+
+    private Comment()
+    {
     }
 
     public Guid Id { get; set; }
