@@ -10,7 +10,7 @@ public class Comment
         AuthorId = Guid.NewGuid();
     }
 
-    private Comment()
+    public Comment()
     {
     }
 
