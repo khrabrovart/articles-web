@@ -56,8 +56,9 @@ jobs:
       matrix:
         project:
           [
-            ArticlesWeb.Functions.Comments.Get,
             ArticlesWeb.Functions.Comments.Create,
+            ArticlesWeb.Functions.Articles.Create,
+            ArticlesWeb.Functions.Articles.Get,
           ]
 
     defaults:
