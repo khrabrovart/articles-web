@@ -24,7 +24,7 @@ public class Function
     {
         var requestParams = RequestParameters.FromAPIRequest(apiRequest);
 
-        object response = requestParams.ArticleId is null
+        object response = requestParams?.ArticleId is null
             ? await GetAllArticles()
             : await GetArticle(requestParams.ArticleId.Value);
 
