@@ -3,7 +3,7 @@ import { ApiArticleComment } from "../types/Api";
 import { httpGet } from "./QueryService";
 
 export const getArticleComments = async (
-  articleId: number
+  articleId: string
 ): Promise<ArticleComment[]> => {
   const result = await httpGet<ApiArticleComment[]>("comments");
 

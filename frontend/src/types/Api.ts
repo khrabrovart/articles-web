@@ -1,6 +1,6 @@
 export interface ApiArticleComment {
-  id: number;
-  articleId: number;
+  id: string;
+  articleId: string;
   date: string;
   content: string;
   author: {

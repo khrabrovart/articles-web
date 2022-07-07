@@ -18,7 +18,7 @@ export interface ArticleSection {
 
 export interface ArticleComment {
   id: string;
-  articleId: number;
+  articleId: string;
   date: Date;
   content: string;
   author: {

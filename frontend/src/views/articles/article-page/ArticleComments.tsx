@@ -58,14 +58,14 @@ const ExistingCommentContent = styled.div`
   line-height: 17px;
 `;
 
-const ArticleComments = (props: { articleId: number }) => {
+const ArticleComments = (props: { articleId: string }) => {
   const formatDate = useDateFormatter();
   const [newCommentText, setNewCommentText] = useState("");
   const [comments, setComments] = useState<ArticleComment[]>([]);
 
   useEffect(() => {
     const loadComments = async () => {
-      const result = await getArticleComments(props.articleId);
+      const result = await getArticleComments("test");
       setComments(result);
     };
     loadComments();
@@ -75,12 +75,9 @@ const ArticleComments = (props: { articleId: number }) => {
     if (!newCommentText) {
       return;
     }
-
-    const lastCommentId = Math.max(...comments.map((c) => c.id));
-
     const newCommentObject = {
-      id: lastCommentId + 1,
-      articleId: props.articleId,
+      id: "test",
+      articleId: "test",
       date: new Date(),
       content: newCommentText,
       author: {
