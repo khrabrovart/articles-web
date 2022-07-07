@@ -11,8 +11,7 @@ public class ArticleEntity
         CreatedOn = DateTime.UtcNow;
         Title = title;
         ImageUrl = imageUrl;
-        Sections = sections.ToList();
-        Comments = new List<CommentEntity>();
+        Sections = sections?.ToList();
     }
 
     public ArticleEntity()
@@ -28,9 +27,9 @@ public class ArticleEntity
 
     public string ImageUrl { get; private set; }
 
+    public Guid AuthorId { get; private set; }
+
     public List<ArticleSectionEntity> Sections { get; private set; }
 
     public List<CommentEntity> Comments { get; private set; }
-
-    public Guid AuthorId { get; private set; }
 }
