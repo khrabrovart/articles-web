@@ -22,7 +22,7 @@ public class Function
 
     public async Task<APIGatewayProxyResponse> Handler(APIGatewayProxyRequest apiRequest, ILambdaContext ctx)
     {
-        var requestParams = new RequestParameters(apiRequest);
+        var requestParams = RequestParameters.FromAPIRequest(apiRequest);
 
         object response = requestParams.ArticleId is null
             ? await GetAllArticles()

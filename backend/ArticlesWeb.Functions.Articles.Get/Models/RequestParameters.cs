@@ -4,14 +4,26 @@ namespace ArticlesWeb.Functions.Articles.Get.Models;
 
 public class RequestParameters
 {
-    public RequestParameters(APIGatewayProxyRequest request)
+    private RequestParameters()
+    {
+    }
+
+    public Guid? ArticleId { get; private init; }
+
+    public static RequestParameters FromAPIRequest(APIGatewayProxyRequest request)
     {
         var parameters = request.QueryStringParameters;
 
-        ArticleId = parameters.TryGetValue("articleId", out var ai) && Guid.TryParse(ai, out var articleId)
-            ? articleId
-            : null;
-    }
+        if (parameters == null)
+        {
+            return null;
+        }
 
-    public Guid? ArticleId { get; }
+        return new RequestParameters
+        {
+            ArticleId = parameters.TryGetValue("articleId", out var ai) && Guid.TryParse(ai, out var articleId)
+                ? articleId
+                : null
+        };
+    }
 }
