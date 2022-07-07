@@ -1,6 +1,6 @@
 import { Article } from "../../types/Articles";
 
-const articles: Article[] = [
+const articles: any[] = [
   {
     id: 1,
     title: "Tesla Model S",
