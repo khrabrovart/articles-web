@@ -1,6 +1,6 @@
 ﻿namespace ArticlesWeb.Functions.Comments.Create.Models;
 
-public class CreateCommentRequest
+public class RequestData
 {
     public Guid ArticleId { get; set; }
 

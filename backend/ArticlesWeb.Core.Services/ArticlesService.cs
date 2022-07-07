@@ -13,18 +13,27 @@ public class ArticlesService : IArticlesService
         _dbClient = dbClient;
     }
 
-    public async Task Create(string title)
+    public async Task Create(string title, string imageUrl, IEnumerable<ArticleSectionEntity> sections)
     {
         var dbContext = new DynamoDBContext(_dbClient);
 
-        var article = new Article(title);
+        var article = new ArticleEntity(title, imageUrl, sections);
         await dbContext.SaveAsync(article);
     }
 
-    public async Task<Article> Get(Guid articleId)
+    public async Task<IReadOnlyCollection<ArticleEntity>> GetAll()
     {
         var dbContext = new DynamoDBContext(_dbClient);
 
-        return await dbContext.LoadAsync<Article>(articleId);
+        return await dbContext
+            .ScanAsync<ArticleEntity>(Array.Empty<ScanCondition>())
+            .GetRemainingAsync();
+    }
+
+    public async Task<ArticleEntity> Get(Guid articleId)
+    {
+        var dbContext = new DynamoDBContext(_dbClient);
+
+        return await dbContext.LoadAsync<ArticleEntity>(articleId);
     }
 }

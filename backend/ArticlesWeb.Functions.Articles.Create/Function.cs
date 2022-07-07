@@ -24,8 +24,13 @@ public class Function
     {
         LambdaLogger.Log(apiRequest.Body);
 
-        var request = apiRequest.GetBody<CreateArticleRequest>();
-        await _articlesService.Create(request.Title);
+        var request = apiRequest.GetBody<RequestData>();
+
+        var sections = request.Sections
+            .Select(s => new ArticleSectionEntity(s.Title, s.Content))
+            .ToArray();
+
+        await _articlesService.Create(request.Title, request.ImageUrl, sections);
 
         return APIGatewayResponse.Created();
     }

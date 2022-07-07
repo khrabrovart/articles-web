@@ -22,11 +22,26 @@ public class Function
 
     public async Task<APIGatewayProxyResponse> Handler(APIGatewayProxyRequest apiRequest, ILambdaContext ctx)
     {
-        var articleId = Guid.Parse(apiRequest.QueryStringParameters["articleId"]);
+        var requestParams = new RequestParameters(apiRequest);
 
-        var article = await _articlesService.Get(articleId);
-        var response = new ArticleModel(article);
+        object response = requestParams.ArticleId is null
+            ? await GetAllArticles()
+            : await GetArticle(requestParams.ArticleId.Value);
 
         return APIGatewayResponse.Ok(response);
+    }
+
+    private async Task<IReadOnlyCollection<ArticleSummary>> GetAllArticles()
+    {
+        var articles = await _articlesService.GetAll();
+        return articles
+            .Select(a => new ArticleSummary(a))
+            .ToArray();
+    }
+
+    private async Task<Article> GetArticle(Guid articleId)
+    {
+        var article = await _articlesService.Get(articleId);
+        return new Article(article);
     }
 }

@@ -17,8 +17,8 @@ public class CommentsService : ICommentsService
     {
         var dbContext = new DynamoDBContext(_dbClient);
 
-        var article = await dbContext.LoadAsync<Article>(articleId);
-        article.Comments.Add(new Comment(content));
+        var article = await dbContext.LoadAsync<ArticleEntity>(articleId);
+        article.Comments.Add(new CommentEntity(content));
 
         await dbContext.SaveAsync(article);
     }

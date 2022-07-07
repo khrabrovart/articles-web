@@ -24,7 +24,7 @@ public class Function
     {
         LambdaLogger.Log(apiRequest.Body);
 
-        var request = apiRequest.GetBody<CreateCommentRequest>();
+        var request = apiRequest.GetBody<RequestData>();
         await _commentsService.Create(request.ArticleId, request.Content);
 
         return APIGatewayResponse.Created();

@@ -1,5 +1,5 @@
 export interface Article {
-  id: number;
+  id: string;
   title: string;
   sections: ArticleSection[];
   imageUrl: string;
@@ -17,7 +17,7 @@ export interface ArticleSection {
 }
 
 export interface ArticleComment {
-  id: number;
+  id: string;
   articleId: number;
   date: Date;
   content: string;

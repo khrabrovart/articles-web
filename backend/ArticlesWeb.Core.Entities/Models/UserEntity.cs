@@ -3,16 +3,16 @@
 namespace ArticlesWeb.Core.Entities;
 
 [DynamoDBTable("users", lowerCamelCaseProperties: true)]
-public class User
+public class UserEntity
 {
-    public User(string username)
+    public UserEntity(string username)
     {
         Id = Guid.NewGuid();
         CreatedOn = DateTime.UtcNow;
         Username = username;
     }
 
-    public User()
+    public UserEntity()
     {
     }
 

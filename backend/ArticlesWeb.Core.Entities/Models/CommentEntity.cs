@@ -1,16 +1,15 @@
 ﻿namespace ArticlesWeb.Core.Entities;
 
-public class Comment
+public class CommentEntity
 {
-    public Comment(string content)
+    public CommentEntity(string content)
     {
         Id = Guid.NewGuid();
         CreatedOn = DateTime.UtcNow;
         Content = content;
-        AuthorId = Guid.NewGuid();
     }
 
-    public Comment()
+    public CommentEntity()
     {
     }
 
