@@ -28,15 +28,13 @@ locals {
 
   ordered_cache_behaviors = [
     {
-      path_pattern     = "/api/articles/*"
+      path_pattern     = "/api/articles*"
       allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
       cached_methods   = ["GET", "HEAD"]
       target_origin_id = "api"
 
       viewer_protocol_policy = "redirect-to-https"
-      min_ttl                = 3600
-      default_ttl            = 3600
-      max_ttl                = 3600
+      ttl                    = 3600
       compress               = false
 
       forwarded_values = {
@@ -48,15 +46,13 @@ locals {
       }
     },
     {
-      path_pattern     = "/api/comments/*"
+      path_pattern     = "/api/comments*"
       allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
       cached_methods   = ["GET", "HEAD"]
       target_origin_id = "api"
 
       viewer_protocol_policy = "redirect-to-https"
-      min_ttl                = 0
-      default_ttl            = 0
-      max_ttl                = 0
+      ttl                    = 0
       compress               = false
 
       forwarded_values = {

@@ -46,9 +46,9 @@ resource "aws_cloudfront_distribution" "cdn" {
       target_origin_id = ordered_cache_behavior.value.target_origin_id
 
       viewer_protocol_policy = ordered_cache_behavior.value.viewer_protocol_policy
-      min_ttl                = ordered_cache_behavior.value.min_ttl
-      default_ttl            = ordered_cache_behavior.value.default_ttl
-      max_ttl                = ordered_cache_behavior.value.max_ttl
+      min_ttl                = ordered_cache_behavior.value.ttl
+      default_ttl            = ordered_cache_behavior.value.ttl
+      max_ttl                = ordered_cache_behavior.value.ttl
       compress               = ordered_cache_behavior.value.compress
 
       forwarded_values {
