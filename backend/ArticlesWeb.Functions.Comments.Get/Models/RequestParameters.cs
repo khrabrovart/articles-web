@@ -1,4 +1,6 @@
 ﻿using Amazon.Lambda.APIGatewayEvents;
+using Amazon.Lambda.Core;
+using Newtonsoft.Json;
 
 namespace ArticlesWeb.Functions.Comments.Get.Models;
 
@@ -14,11 +16,14 @@ public class RequestParameters
     {
         var parameters = request.QueryStringParameters;
 
-        return new RequestParameters
+        var parsedParameters = new RequestParameters
         {
             ArticleId = parameters.TryGetValue("articleId", out var ai) && Guid.TryParse(ai, out var articleId)
                 ? articleId
                 : null
         };
+
+        LambdaLogger.Log(JsonConvert.SerializeObject(parsedParameters));
+        return parsedParameters;
     }
 }

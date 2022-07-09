@@ -1,4 +1,6 @@
 ﻿using Amazon.Lambda.APIGatewayEvents;
+using Amazon.Lambda.Core;
+using Newtonsoft.Json;
 
 namespace ArticlesWeb.Functions.Articles.Get.Models;
 
@@ -18,17 +20,22 @@ public class RequestParameters
     {
         var parameters = request.QueryStringParameters;
 
-        return new RequestParameters
+        var parsedParameters = new RequestParameters
         {
-            ArticleId = parameters.TryGetValue("articleId", out var ai) && Guid.TryParse(ai, out var articleId)
+            ArticleId = parameters.TryGetValue("articleId", out var ai)
+                        && Guid.TryParse(ai, out var articleId)
                 ? articleId
                 : null,
-            Mode = parameters.TryGetValue("mode", out var m) && Enum.TryParse<ResponseMode>(m, out var mode)
+            Mode = parameters.TryGetValue("mode", out var m)
+                   && Enum.TryParse<ResponseMode>(m, ignoreCase: true, out var mode)
                 ? mode
                 : ResponseMode.Full,
-            WithComments = !(parameters.TryGetValue("withComments", out var wc) && bool.TryParse(wc, out var withComments)) || withComments
-
+            WithComments = !(parameters.TryGetValue("withComments", out var wc)
+                             && bool.TryParse(wc, out var withComments)) || withComments
         };
+
+        LambdaLogger.Log(JsonConvert.SerializeObject(parsedParameters));
+        return parsedParameters;
     }
 
     public enum ResponseMode
