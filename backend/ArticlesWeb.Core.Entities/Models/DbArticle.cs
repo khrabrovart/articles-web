@@ -2,7 +2,7 @@
 
 namespace ArticlesWeb.Core.Entities;
 
-[DynamoDBTable("articles")]
+[DynamoDBTable("articles", lowerCamelCaseProperties: true)]
 public class DbArticle
 {
     public DbArticle(string title, string imageUrl, IEnumerable<DbArticleSection> sections)

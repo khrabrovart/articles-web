@@ -2,7 +2,7 @@
 
 namespace ArticlesWeb.Core.Entities;
 
-[DynamoDBTable("users")]
+[DynamoDBTable("users", lowerCamelCaseProperties: true)]
 public class DbUser
 {
     public DbUser(string username)
