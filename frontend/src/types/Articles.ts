@@ -1,14 +1,15 @@
+export interface ArticleSummary {
+  id: string;
+  title: string;
+  imageUrl: string;
+}
+
 export interface Article {
   id: string;
   title: string;
-  sections: ArticleSection[];
   imageUrl: string;
-  author: {
-    userId: number;
-    userImageId: number;
-    userName: string;
-    fullName?: string;
-  };
+  sections: ArticleSection[];
+  comments: ArticleComment[];
 }
 
 export interface ArticleSection {
@@ -18,13 +19,12 @@ export interface ArticleSection {
 
 export interface ArticleComment {
   id: string;
-  articleId: string;
-  date: Date;
   content: string;
-  author: {
-    userId: number;
-    userImageId: number;
-    userName: string;
-    fullName?: string;
-  };
+  createdOn: Date;
+  author: ArticleCommentAuthor;
+}
+
+export interface ArticleCommentAuthor {
+  userName: string;
+  fullName: string;
 }

@@ -4,11 +4,11 @@ namespace ArticlesWeb.Functions.Articles.Get.Models;
 
 public class ArticleSummary
 {
-    public ArticleSummary(ArticleEntity articleEntity)
+    public ArticleSummary(DbArticle dbArticle)
     {
-        Id = articleEntity.Id;
-        Title = articleEntity.Title;
-        ImageUrl = articleEntity.ImageUrl;
+        Id = dbArticle.Id;
+        Title = dbArticle.Title;
+        ImageUrl = dbArticle.ImageUrl;
     }
 
     public Guid Id { get; }

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import * as CommentsService from "../../../services/CommentsService";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "../../../components/controls/Button";
 import useDateFormatter from "../../../hooks/DateFormatterHook";
-import { getArticleComments } from "../../../services/CommentsService";
 import { ArticleComment } from "../../../types/Articles";
 
 const Container = styled.div`
@@ -58,43 +58,31 @@ const ExistingCommentContent = styled.div`
   line-height: 17px;
 `;
 
-const ArticleComments = (props: { articleId: string }) => {
+const ArticleComments = (props: {
+  articleId: string;
+  comments: ArticleComment[];
+}) => {
   const formatDate = useDateFormatter();
   const [newCommentText, setNewCommentText] = useState("");
-  const [comments, setComments] = useState<ArticleComment[]>([]);
 
-  useEffect(() => {
-    const loadComments = async () => {
-      const result = await getArticleComments("test");
-      setComments(result);
-    };
-    loadComments();
-  }, []);
-
-  const sendComment = () => {
+  const sendComment = async () => {
     if (!newCommentText) {
       return;
     }
-    const newCommentObject = {
-      id: "test",
-      articleId: "test",
-      date: new Date(),
-      content: newCommentText,
-      author: {
-        userId: 100,
-        userImageId: 100,
-        userName: "test_user",
-        fullName: "Test User",
-      },
-    };
 
-    setComments([...comments, newCommentObject]);
+    const promise = CommentsService.createComment(
+      props.articleId,
+      newCommentText
+    );
     setNewCommentText("");
+
+    await promise;
+    //props.comments.push(newCommentObject);
   };
 
   return (
     <Container>
-      <Title>{comments.length} comments</Title>
+      <Title>{props.comments.length} comments</Title>
 
       <NewCommentInput
         placeholder="Write your comment..."
@@ -111,7 +99,7 @@ const ArticleComments = (props: { articleId: string }) => {
       </NewCommentControls>
 
       <ExistingComments>
-        {comments.map((c) => (
+        {props.comments.map((c) => (
           <ExistingComment key={c.id}>
             {c.author.fullName && (
               <ExistingCommentAuthorFullName>
@@ -119,7 +107,7 @@ const ArticleComments = (props: { articleId: string }) => {
               </ExistingCommentAuthorFullName>
             )}
             <ExistingCommentMetadata>
-              {`@${c.author.userName} on ${formatDate(c.date)}`}
+              {`@${c.author.userName} on ${formatDate(c.createdOn)}`}
             </ExistingCommentMetadata>
             <ExistingCommentContent>{c.content}</ExistingCommentContent>
           </ExistingComment>

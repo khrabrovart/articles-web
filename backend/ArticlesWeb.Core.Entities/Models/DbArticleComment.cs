@@ -1,15 +1,15 @@
 ﻿namespace ArticlesWeb.Core.Entities;
 
-public class CommentEntity
+public class DbArticleComment
 {
-    public CommentEntity(string content)
+    public DbArticleComment(string content)
     {
         Id = Guid.NewGuid();
         CreatedOn = DateTime.UtcNow;
         Content = content;
     }
 
-    public CommentEntity()
+    public DbArticleComment()
     {
     }
 

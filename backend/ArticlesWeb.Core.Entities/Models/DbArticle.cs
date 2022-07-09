@@ -2,10 +2,10 @@
 
 namespace ArticlesWeb.Core.Entities;
 
-[DynamoDBTable("articles", lowerCamelCaseProperties: true)]
-public class ArticleEntity
+[DynamoDBTable("articles")]
+public class DbArticle
 {
-    public ArticleEntity(string title, string imageUrl, IEnumerable<ArticleSectionEntity> sections)
+    public DbArticle(string title, string imageUrl, IEnumerable<DbArticleSection> sections)
     {
         Id = Guid.NewGuid();
         CreatedOn = DateTime.UtcNow;
@@ -14,7 +14,7 @@ public class ArticleEntity
         Sections = sections?.ToList();
     }
 
-    public ArticleEntity()
+    public DbArticle()
     {
     }
 
@@ -29,7 +29,7 @@ public class ArticleEntity
 
     public Guid AuthorId { get; private set; }
 
-    public List<ArticleSectionEntity> Sections { get; private set; }
+    public List<DbArticleSection> Sections { get; private set; }
 
-    public List<CommentEntity> Comments { get; private set; }
+    public List<DbArticleComment> Comments { get; private set; }
 }

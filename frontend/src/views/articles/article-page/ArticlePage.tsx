@@ -1,7 +1,9 @@
-import React from "react";
-import { Navigate, useParams } from "react-router-dom";
+import * as ArticlesService from "../../../services/ArticlesService";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import useArticles from "../../../hooks/data/ArticlesDataHook";
+import { Article } from "../../../types/Articles";
 import Page from "../../Page";
 import ArticleComments from "./ArticleComments";
 
@@ -46,34 +48,47 @@ const ArticleCommentsSeparator = styled.div`
 `;
 
 const ArticlePage = () => {
+  const [article, setArticle] = useState<Article>();
   const { articleId } = useParams();
-  const articleIdParsed = (articleId && Number(articleId)) || undefined;
+  const navigate = useNavigate();
+  const [_, getArticleById] = useArticles();
 
-  if (articleIdParsed) {
-    const [_, getArticleById] = useArticles();
-    const article = getArticleById(articleIdParsed);
-
-    if (article) {
-      return (
-        <Page>
-          <Container>
-            <ArticleTitle>{article.title}</ArticleTitle>
-            <ArticleImage src={article.imageUrl} />
-            {article.sections.map((as) => (
-              <ArticleSection key={as.title}>
-                <ArticleSectionTitle>{as.title}</ArticleSectionTitle>
-                <ArticleSectionContent>{as.content}</ArticleSectionContent>
-              </ArticleSection>
-            ))}
-            <ArticleCommentsSeparator />
-            <ArticleComments articleId={article.id} />
-          </Container>
-        </Page>
-      );
+  useEffect(() => {
+    if (!articleId) {
+      navigate("/404");
     }
-  }
 
-  return <Navigate to="/404" replace />;
+    const loadArticle = async () => {
+      let article = getArticleById(articleId!);
+      article ??= await ArticlesService.getArticle(articleId!);
+
+      if (!article) {
+        navigate("/404");
+      }
+
+      setArticle(article);
+    };
+    loadArticle();
+  }, []);
+
+  return (
+    <Page>
+      {article && (
+        <Container>
+          <ArticleTitle>{article.title}</ArticleTitle>
+          <ArticleImage src={article.imageUrl} />
+          {article.sections.map((as) => (
+            <ArticleSection key={as.title}>
+              <ArticleSectionTitle>{as.title}</ArticleSectionTitle>
+              <ArticleSectionContent>{as.content}</ArticleSectionContent>
+            </ArticleSection>
+          ))}
+          <ArticleCommentsSeparator />
+          <ArticleComments articleId={article.id} comments={article.comments} />
+        </Container>
+      )}
+    </Page>
+  );
 };
 
 export default ArticlePage;

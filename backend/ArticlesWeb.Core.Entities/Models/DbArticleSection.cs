@@ -1,15 +1,15 @@
 ﻿namespace ArticlesWeb.Core.Entities;
 
-public class ArticleSectionEntity
+public class DbArticleSection
 {
-    public ArticleSectionEntity(string title, string content)
+    public DbArticleSection(string title, string content)
     {
         Id = Guid.NewGuid();
         Title = title;
         Content = content;
     }
 
-    public ArticleSectionEntity()
+    public DbArticleSection()
     {
     }
 

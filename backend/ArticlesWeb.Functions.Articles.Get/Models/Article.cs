@@ -4,19 +4,19 @@ namespace ArticlesWeb.Functions.Articles.Get.Models;
 
 public class Article
 {
-    public Article(ArticleEntity articleEntity)
+    public Article(DbArticle dbArticle)
     {
-        Id = articleEntity.Id;
-        Title = articleEntity.Title;
-        ImageUrl = articleEntity.ImageUrl;
+        Id = dbArticle.Id;
+        Title = dbArticle.Title;
+        ImageUrl = dbArticle.ImageUrl;
 
-        Sections = articleEntity.Sections?
+        Sections = dbArticle.Sections?
             .Select(s => new ArticleSection(s))
             .ToArray() ?? Array.Empty<ArticleSection>();
 
-        Comments = articleEntity.Comments?
-            .Select(c => new Comment(c))
-            .ToArray() ?? Array.Empty<Comment>();
+        Comments = dbArticle.Comments?
+            .Select(c => new ArticleComment(c))
+            .ToArray() ?? Array.Empty<ArticleComment>();
     }
 
     public Guid Id { get; }
@@ -27,5 +27,5 @@ public class Article
 
     public IReadOnlyCollection<ArticleSection> Sections { get; }
 
-    public IReadOnlyCollection<Comment> Comments { get; }
+    public IReadOnlyCollection<ArticleComment> Comments { get; }
 }

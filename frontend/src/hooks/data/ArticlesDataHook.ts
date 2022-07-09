@@ -1,8 +1,8 @@
 import { Article } from "../../types/Articles";
 
-const articles: any[] = [
+const articles: Article[] = [
   {
-    id: 1,
+    id: "880e2157-1f1f-4091-87f8-22d33c623fa1",
     title: "Tesla Model S",
     sections: [
       {
@@ -18,81 +18,50 @@ const articles: any[] = [
     ],
     imageUrl:
       "https://tesla-cdn.thron.com/delivery/public/image/tesla/2391415a-7273-4735-92b2-a37c84c26f04/bvlatuR/std/4096x2560/Homepage-Model-S-Desktop-RHD",
-    author: {
-      userId: 1,
-      userImageId: 1,
-      userName: "adam_savage",
-      fullName: "Adam Savage",
-    },
+    comments: [],
   },
   {
-    id: 2,
+    id: "880e2157-1f1f-4091-87f8-22d33c623fa2",
     title: "Fennec Fox",
     sections: [],
     imageUrl:
       "https://media.wired.com/photos/593261cab8eb31692072f129/master/pass/85120553.jpg",
-    author: {
-      userId: 1,
-      userImageId: 1,
-      userName: "adam_savage",
-      fullName: "Adam Savage",
-    },
+    comments: [],
   },
   {
-    id: 3,
+    id: "880e2157-1f1f-4091-87f8-22d33c623fa3",
     title: "Best CPUs for Gaming 2022",
     sections: [],
     imageUrl:
       "https://images.frandroid.com/wp-content/uploads/2020/12/processeur-cpu.jpg",
-    author: {
-      userId: 1,
-      userImageId: 1,
-      userName: "adam_savage",
-      fullName: "Adam Savage",
-    },
+    comments: [],
   },
   {
-    id: 4,
+    id: "880e2157-1f1f-4091-87f8-22d33c623fa4",
     title: "The rise of volleyball",
     sections: [],
     imageUrl:
       "https://www.fivb.org/Vis2009/Images/GetImage.asmx?Type=Press&No=90687&width=1410&height=923&stretch=uniformtofill",
-    author: {
-      userId: 1,
-      userImageId: 1,
-      userName: "adam_savage",
-      fullName: "Adam Savage",
-    },
+    comments: [],
   },
   {
-    id: 5,
+    id: "880e2157-1f1f-4091-87f8-22d33c623fa5",
     title: "Best 10 Trails and Hikes in Armenia",
     sections: [],
-    imageUrl:
-      "https://daily.jstor.org/wp-content/uploads/2016/10/Moving_Forest_1050_700.jpg",
-    author: {
-      userId: 1,
-      userImageId: 1,
-      userName: "adam_savage",
-      fullName: "Adam Savage",
-    },
+    imageUrl: "https://f-tep.com/wp-content/uploads/2020/09/ftep-hero1.jpg",
+    comments: [],
   },
   {
-    id: 6,
+    id: "880e2157-1f1f-4091-87f8-22d33c623fa6",
     title: "How city life affects your health and happiness",
     sections: [],
     imageUrl:
       "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Y2l0eXxlbnwwfHwwfHw%3D&w=1000&q=80",
-    author: {
-      userId: 1,
-      userImageId: 1,
-      userName: "adam_savage",
-      fullName: "Adam Savage",
-    },
+    comments: [],
   },
 ];
 
-const useArticles = (): [Article[], (id: number) => Article | undefined] => {
+const useArticles = (): [Article[], (id: string) => Article | undefined] => {
   return [articles, (id) => articles.find((a) => a.id === id)];
 };
 

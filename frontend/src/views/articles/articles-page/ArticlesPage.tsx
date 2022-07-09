@@ -1,7 +1,9 @@
-import React from "react";
+import * as ArticlesService from "../../../services/ArticlesService";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import useArticles from "../../../hooks/data/ArticlesDataHook";
+import { Article, ArticleSummary } from "../../../types/Articles";
 import Page from "../../Page";
 
 const Container = styled.div`
@@ -23,6 +25,7 @@ const ArticlePanel = styled.div<{ imageUrl: string }>`
   background-position: center top;
   background-size: cover;
   box-shadow: 0 0 5px #aaa;
+  text-shadow: 0 0 5px #000;
   cursor: pointer;
 
   top: 0;
@@ -47,7 +50,16 @@ const ArticlePanelMetadata = styled.div`
 
 const ArticlesPage = () => {
   const navigate = useNavigate();
-  const [articles, _] = useArticles();
+  const [predefinedArticles, _] = useArticles();
+  const [articles, setArticles] = useState<ArticleSummary[]>([]);
+
+  useEffect(() => {
+    const loadArticles = async () => {
+      const result = await ArticlesService.getArticles();
+      setArticles([...predefinedArticles, ...result]);
+    };
+    loadArticles();
+  }, []);
 
   return (
     <Page>
@@ -59,9 +71,7 @@ const ArticlesPage = () => {
             onClick={() => navigate(article.id.toString())}
           >
             <ArticlePanelTitle>{article.title}</ArticlePanelTitle>
-            <ArticlePanelMetadata>
-              {article.author.fullName}
-            </ArticlePanelMetadata>
+            <ArticlePanelMetadata>Test Name</ArticlePanelMetadata>
           </ArticlePanel>
         ))}
       </Container>

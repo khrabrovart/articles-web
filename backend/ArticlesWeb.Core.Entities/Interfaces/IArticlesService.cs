@@ -2,9 +2,9 @@
 
 public interface IArticlesService
 {
-    Task Create(string title, string imageUrl, IEnumerable<ArticleSectionEntity> sections);
+    Task Create(string title, string imageUrl, IEnumerable<DbArticleSection> sections);
 
-    Task<IReadOnlyCollection<ArticleEntity>> GetAll();
+    Task<IReadOnlyCollection<DbArticle>> GetAll();
 
-    Task<ArticleEntity> Get(Guid articleId);
+    Task<DbArticle> Get(Guid articleId);
 }

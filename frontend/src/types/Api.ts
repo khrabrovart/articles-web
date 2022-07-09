@@ -1,12 +1,28 @@
+export interface ApiResponse<T> {
+  data: T;
+}
+
+export interface ApiArticleSummary {
+  id: string;
+  title: string;
+  imageUrl: string;
+}
+
+export interface ApiArticle {
+  id: string;
+  title: string;
+  imageUrl: string;
+  sections: ApiArticleSection[];
+  comments: ApiArticleComment[];
+}
+
+export interface ApiArticleSection {
+  title: string;
+  content: string;
+}
+
 export interface ApiArticleComment {
   id: string;
-  articleId: string;
-  date: string;
   content: string;
-  author: {
-    userId: number;
-    userImageId: number;
-    userName: string;
-    fullName?: string;
-  };
+  createdOn: string;
 }

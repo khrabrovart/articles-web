@@ -27,7 +27,7 @@ public class Function
         var request = apiRequest.GetBody<RequestData>();
 
         var sections = request.Sections
-            .Select(s => new ArticleSectionEntity(s.Title, s.Content))
+            .Select(s => new DbArticleSection(s.Title, s.Content))
             .ToArray();
 
         await _articlesService.Create(request.Title, request.ImageUrl, sections);

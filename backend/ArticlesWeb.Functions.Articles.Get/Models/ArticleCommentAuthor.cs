@@ -1,6 +1,6 @@
 ﻿namespace ArticlesWeb.Functions.Articles.Get.Models;
 
-public class CommentAuthor
+public class ArticleCommentAuthor
 {
     public Guid Id { get; private set; }
 

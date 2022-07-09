@@ -1,17 +1,16 @@
-import { ArticleComment } from "../types/Articles";
-import { ApiArticleComment } from "../types/Api";
-import { httpGet } from "./QueryService";
+import { ApiRoutes, httpPost } from "./QueryService";
 
-export const getArticleComments = async (
-  articleId: string
-): Promise<ArticleComment[]> => {
-  const result = await httpGet<ApiArticleComment[]>("comments");
+interface CreateCommentRequest {
+  articleId: string;
+  content: string;
+}
 
-  return result.data.map((c) => ({
-    id: c.id,
-    articleId: c.articleId,
-    date: new Date(c.date),
-    content: c.content,
-    author: c.author,
-  }));
+export const createComment = async (
+  articleId: string,
+  content: string
+): Promise<void> => {
+  await httpPost<CreateCommentRequest>(ApiRoutes.Comments, {
+    articleId,
+    content,
+  });
 };

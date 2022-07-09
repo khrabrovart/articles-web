@@ -4,10 +4,10 @@ namespace ArticlesWeb.Functions.Articles.Get.Models;
 
 public class ArticleSection
 {
-    public ArticleSection(ArticleSectionEntity sectionEntity)
+    public ArticleSection(DbArticleSection section)
     {
-        Title = sectionEntity.Title;
-        Content = sectionEntity.Content;
+        Title = section.Title;
+        Content = section.Content;
     }
 
     public string Title { get; }
