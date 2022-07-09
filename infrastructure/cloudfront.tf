@@ -25,12 +25,56 @@ locals {
       }
     }
   ]
+
+  ordered_cache_behaviors = [
+    {
+      path_pattern     = "/api/articles/*"
+      allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+      cached_methods   = ["GET", "HEAD"]
+      target_origin_id = "api"
+
+      viewer_protocol_policy = "redirect-to-https"
+      min_ttl                = 3600
+      default_ttl            = 3600
+      max_ttl                = 3600
+      compress               = false
+
+      forwarded_values = {
+        query_string = true
+
+        cookies = {
+          forward = "all"
+        }
+      }
+    },
+    {
+      path_pattern     = "/api/comments/*"
+      allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+      cached_methods   = ["GET", "HEAD"]
+      target_origin_id = "api"
+
+      viewer_protocol_policy = "redirect-to-https"
+      min_ttl                = 0
+      default_ttl            = 0
+      max_ttl                = 0
+      compress               = false
+
+      forwarded_values = {
+        query_string = true
+
+        cookies = {
+          forward = "all"
+        }
+      }
+    }
+  ]
 }
 
 module "cloudfront" {
   source = "./modules/cloudfront"
 
-  origins = local.origins
+  origins                 = local.origins
+  ordered_cache_behaviors = local.ordered_cache_behaviors
 
   default_cache_behavior = {
     allowed_methods  = ["GET", "HEAD"]
@@ -48,27 +92,6 @@ module "cloudfront" {
 
       cookies = {
         forward = "none"
-      }
-    }
-  }
-
-  ordered_cache_behavior = {
-    path_pattern     = "/api/*"
-    allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
-    cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "api"
-
-    viewer_protocol_policy = "redirect-to-https"
-    min_ttl                = 0
-    default_ttl            = 0
-    max_ttl                = 0
-    compress               = false
-
-    forwarded_values = {
-      query_string = true
-
-      cookies = {
-        forward = "all"
       }
     }
   }

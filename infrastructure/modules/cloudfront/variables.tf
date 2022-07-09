@@ -8,9 +8,9 @@ variable "default_cache_behavior" {
   type        = any
 }
 
-variable "ordered_cache_behavior" {
-  description = "Cloudfront ordered cache behavior"
-  type        = any
+variable "ordered_cache_behaviors" {
+  description = "Cloudfront ordered cache behaviors"
+  type        = list(any)
 }
 
 variable "common_tags" {
