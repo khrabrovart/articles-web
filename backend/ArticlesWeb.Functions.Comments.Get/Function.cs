@@ -2,13 +2,13 @@
 using Amazon.Lambda.Core;
 using Amazon.Lambda.Serialization.SystemTextJson;
 using ArticlesWeb.Core.Entities;
-using ArticlesWeb.Functions.Articles.Get.Models;
+using ArticlesWeb.Functions.Comments.Get.Models;
 using ArticlesWeb.Functions.Shared;
 using Microsoft.Extensions.DependencyInjection;
 
 [assembly: LambdaSerializer(typeof(DefaultLambdaJsonSerializer))]
 
-namespace ArticlesWeb.Functions.Articles.Get;
+namespace ArticlesWeb.Functions.Comments.Get;
 
 public class Function
 {
@@ -24,21 +24,21 @@ public class Function
     {
         var requestParams = RequestParameters.FromAPIRequest(apiRequest);
 
-        var articles = requestParams.ArticleId is null
-            ? await GetAllArticles()
-            : new[] {await GetArticle(requestParams.ArticleId.Value)};
+        if (requestParams.ArticleId is null)
+        {
+            return APIGatewayResponse.BadRequest();
+        }
 
-        object response = requestParams.Mode == RequestParameters.ResponseMode.Full
-            ? articles.Select(a => new Article(a, requestParams.WithComments))
-            : articles.Select(a => new ArticleSummary(a));
+        object response = await GetArticleComments(requestParams.ArticleId.Value);
 
         return APIGatewayResponse.Ok(response);
     }
 
-    private async Task<IReadOnlyCollection<DbArticle>> GetAllArticles() =>
-        await _articlesService.GetAll();
-
-
-    private async Task<DbArticle> GetArticle(Guid articleId) =>
-        await _articlesService.Get(articleId);
+    private async Task<IReadOnlyCollection<ArticleComment>> GetArticleComments(Guid articleId)
+    {
+        var article = await _articlesService.Get(articleId);
+        return article.Comments
+            .Select(c => new ArticleComment(c))
+            .ToArray();
+    }
 }

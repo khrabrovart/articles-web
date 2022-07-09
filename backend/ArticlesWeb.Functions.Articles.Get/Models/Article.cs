@@ -4,7 +4,7 @@ namespace ArticlesWeb.Functions.Articles.Get.Models;
 
 public class Article
 {
-    public Article(DbArticle dbArticle)
+    public Article(DbArticle dbArticle, bool withComments)
     {
         Id = dbArticle.Id;
         Title = dbArticle.Title;
@@ -14,9 +14,12 @@ public class Article
             .Select(s => new ArticleSection(s))
             .ToArray() ?? Array.Empty<ArticleSection>();
 
-        Comments = dbArticle.Comments?
-            .Select(c => new ArticleComment(c))
-            .ToArray() ?? Array.Empty<ArticleComment>();
+        if (withComments)
+        {
+            Comments = dbArticle.Comments?
+                .Select(c => new ArticleComment(c))
+                .ToArray() ?? Array.Empty<ArticleComment>();
+        }
     }
 
     public Guid Id { get; }

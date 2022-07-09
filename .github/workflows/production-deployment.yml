@@ -57,6 +57,7 @@ jobs:
         project:
           [
             ArticlesWeb.Functions.Comments.Create,
+            ArticlesWeb.Functions.Comments.Get,
             ArticlesWeb.Functions.Articles.Create,
             ArticlesWeb.Functions.Articles.Get,
           ]

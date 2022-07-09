@@ -22,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Articles", "Articles", "{76
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArticlesWeb.Functions.Articles.Create", "ArticlesWeb.Functions.Articles.Create\ArticlesWeb.Functions.Articles.Create.csproj", "{0F127614-A9CD-438F-8C48-A527339934FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArticlesWeb.Functions.Comments.Get", "ArticlesWeb.Functions.Comments.Get\ArticlesWeb.Functions.Comments.Get.csproj", "{9DCEF35C-FEF3-4043-AE2D-B335D74BC60E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,10 @@ Global
 		{0F127614-A9CD-438F-8C48-A527339934FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F127614-A9CD-438F-8C48-A527339934FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F127614-A9CD-438F-8C48-A527339934FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DCEF35C-FEF3-4043-AE2D-B335D74BC60E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DCEF35C-FEF3-4043-AE2D-B335D74BC60E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DCEF35C-FEF3-4043-AE2D-B335D74BC60E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DCEF35C-FEF3-4043-AE2D-B335D74BC60E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F3A2496C-7447-4A61-B3CA-8D8ECE91A6DF} = {E50EE588-42D1-4E43-8569-3C24A16301C1}
@@ -67,5 +73,6 @@ Global
 		{7609DA6E-9181-4F7C-A19A-81710466A7FB} = {E50EE588-42D1-4E43-8569-3C24A16301C1}
 		{7349E7D5-1BB3-4501-959D-83BC1A458124} = {7609DA6E-9181-4F7C-A19A-81710466A7FB}
 		{0F127614-A9CD-438F-8C48-A527339934FC} = {7609DA6E-9181-4F7C-A19A-81710466A7FB}
+		{9DCEF35C-FEF3-4043-AE2D-B335D74BC60E} = {6267DE72-044E-4E60-BDB2-39D5B57B0EE8}
 	EndGlobalSection
 EndGlobal

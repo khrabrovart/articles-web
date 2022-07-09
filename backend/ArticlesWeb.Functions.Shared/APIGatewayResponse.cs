@@ -22,6 +22,10 @@ public static class APIGatewayResponse
         };
 
     public static APIGatewayProxyResponse Ok(object response) => BuildResponse(response, 200);
+
     public static APIGatewayProxyResponse Created() => BuildResponse(null, 201);
+
     public static APIGatewayProxyResponse NoContent() => BuildResponse(null, 204);
+
+    public static APIGatewayProxyResponse BadRequest() => BuildResponse(null, 400);
 }

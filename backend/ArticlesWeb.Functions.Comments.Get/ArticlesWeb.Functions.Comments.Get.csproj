@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+        <AWSProjectType>Lambda</AWSProjectType>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+        <PublishReadyToRun>true</PublishReadyToRun>
+        <RootNamespace>ArticlesWeb.Functions.Comments.Get</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ArticlesWeb.Functions.Shared\ArticlesWeb.Functions.Shared.csproj" />
+    </ItemGroup>
+
+</Project>
