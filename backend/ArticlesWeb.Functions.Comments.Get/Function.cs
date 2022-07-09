@@ -4,6 +4,7 @@ using Amazon.Lambda.Serialization.SystemTextJson;
 using ArticlesWeb.Core.Entities;
 using ArticlesWeb.Functions.Comments.Get.Models;
 using ArticlesWeb.Functions.Shared;
+using ArticlesWeb.Functions.Shared.Models;
 using Microsoft.Extensions.DependencyInjection;
 
 [assembly: LambdaSerializer(typeof(DefaultLambdaJsonSerializer))]

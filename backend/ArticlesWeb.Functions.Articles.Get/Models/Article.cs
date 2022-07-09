@@ -1,4 +1,5 @@
 ﻿using ArticlesWeb.Core.Entities;
+using ArticlesWeb.Functions.Shared.Models;
 
 namespace ArticlesWeb.Functions.Articles.Get.Models;
 

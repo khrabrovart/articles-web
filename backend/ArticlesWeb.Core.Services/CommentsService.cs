@@ -13,13 +13,17 @@ public class CommentsService : ICommentsService
         _dbClient = dbClient;
     }
 
-    public async Task Create(Guid articleId, string content)
+    public async Task<DbArticleComment> Create(Guid articleId, string content)
     {
         var dbContext = new DynamoDBContext(_dbClient);
 
+        var comment = new DbArticleComment(content);
+
         var article = await dbContext.LoadAsync<DbArticle>(articleId);
-        article.Comments.Add(new DbArticleComment(content));
+        article.Comments.Add(comment);
 
         await dbContext.SaveAsync(article);
+
+        return comment;
     }
 }

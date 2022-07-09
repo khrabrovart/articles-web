@@ -2,5 +2,5 @@
 
 public interface ICommentsService
 {
-    Task Create(Guid articleId, string content);
+    Task<DbArticleComment> Create(Guid articleId, string content);
 }

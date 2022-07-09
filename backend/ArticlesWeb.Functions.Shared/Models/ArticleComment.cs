@@ -1,6 +1,6 @@
 ﻿using ArticlesWeb.Core.Entities;
 
-namespace ArticlesWeb.Functions.Comments.Get.Models;
+namespace ArticlesWeb.Functions.Shared.Models;
 
 public class ArticleComment
 {
