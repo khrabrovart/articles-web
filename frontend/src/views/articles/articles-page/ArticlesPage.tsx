@@ -74,7 +74,7 @@ const ArticlesPage = () => {
             onClick={() => navigate(article.id.toString())}
           >
             <ArticlePanelTitle>{article.title}</ArticlePanelTitle>
-            <ArticlePanelMetadata>Test Name 1</ArticlePanelMetadata>
+            <ArticlePanelMetadata>Test Name</ArticlePanelMetadata>
           </ArticlePanel>
         ))}
       </Container>
