@@ -12,6 +12,7 @@ public class DbArticle
         Title = title;
         ImageUrl = imageUrl;
         Sections = sections?.ToList();
+        Comments = new List<DbArticleComment>();
     }
 
     public DbArticle()
