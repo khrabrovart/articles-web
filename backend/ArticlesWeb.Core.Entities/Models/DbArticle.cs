@@ -12,7 +12,6 @@ public class DbArticle
         Title = title;
         ImageUrl = imageUrl;
         Sections = sections?.ToList();
-        Comments = new List<DbArticleComment>();
     }
 
     public DbArticle()
@@ -32,5 +31,5 @@ public class DbArticle
 
     public List<DbArticleSection> Sections { get; private set; }
 
-    public List<DbArticleComment> Comments { get; private set; }
+    public List<DbArticleComment> Comments { get; private set; } = new();
 }
