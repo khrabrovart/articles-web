@@ -37,9 +37,9 @@ public class Function
     private async Task<IReadOnlyCollection<ArticleComment>> GetArticleComments(Guid articleId)
     {
         var article = await _articlesService.Get(articleId);
-        return article.Comments
+        return article.Comments?
             .OrderByDescending(c => c.CreatedOn)
             .Select(c => new ArticleComment(c))
-            .ToArray();
+            .ToArray() ?? Array.Empty<ArticleComment>();
     }
 }

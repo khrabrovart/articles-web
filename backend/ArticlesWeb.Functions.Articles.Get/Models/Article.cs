@@ -17,6 +17,7 @@ public class Article
         if (withComments)
         {
             Comments = dbArticle.Comments?
+                .OrderByDescending(c => c.CreatedOn)
                 .Select(c => new ArticleComment(c))
                 .ToArray() ?? Array.Empty<ArticleComment>();
         }
