@@ -8,7 +8,7 @@ module.exports = {
   mode: prod ? "production" : "development",
   entry: "./src/index.tsx",
   output: {
-    filename: "[name].[contenthash].js",
+    filename: "[name].js",
     path: __dirname + "/dist/",
     publicPath: "/",
   },
