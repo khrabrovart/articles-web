@@ -38,6 +38,7 @@ public class Function
     {
         var article = await _articlesService.Get(articleId);
         return article.Comments
+            .OrderByDescending(c => c.CreatedOn)
             .Select(c => new ArticleComment(c))
             .ToArray();
     }

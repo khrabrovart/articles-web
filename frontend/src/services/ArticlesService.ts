@@ -1,4 +1,3 @@
-import * as PredefinedArticlesService from "./PredefinedArticlesService";
 import { Article, ArticleSummary } from "../types/Articles";
 import { ApiArticle, ApiArticleSummary } from "../types/Api";
 import { ApiRoutes, httpGet } from "./QueryService";
@@ -46,9 +45,7 @@ export const getArticlesSummary = async (
     withComments: false,
   });
 
-  const predefinedResult = PredefinedArticlesService.getApiArticles();
-
-  const mappedResult = [...result.data, ...predefinedResult].map((a) => ({
+  const mappedResult = result.data.map((a) => ({
     id: a.id,
     title: a.title,
     imageUrl: a.imageUrl,
@@ -76,9 +73,7 @@ export const getArticles = async (
     withComments,
   });
 
-  const predefinedResult = PredefinedArticlesService.getApiArticles();
-
-  const mappedResult = [...result.data, ...predefinedResult].map(mapApiArticle);
+  const mappedResult = result.data.map(mapApiArticle);
 
   articlesCache.set(createCacheKey(withComments, true), mappedResult);
 
@@ -102,15 +97,11 @@ export const getArticle = async (
     }
   }
 
-  let result = PredefinedArticlesService.getApiArticleById(articleId);
+  const result = await httpGet<ApiArticle[]>(ApiRoutes.Articles, {
+    articleId,
+    mode: "full",
+    withComments,
+  });
 
-  result ??= (
-    await httpGet<ApiArticle[]>(ApiRoutes.Articles, {
-      articleId,
-      mode: "full",
-      withComments,
-    })
-  ).data[0];
-
-  return mapApiArticle(result);
+  return mapApiArticle(result.data[0]);
 };

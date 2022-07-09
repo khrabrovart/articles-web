@@ -1,5 +1,5 @@
 import * as CommentsService from "../../../services/CommentsService";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Button from "../../../components/controls/Button";
 import useDateFormatter from "../../../hooks/DateFormatterHook";
@@ -58,12 +58,18 @@ const ExistingCommentContent = styled.div`
   line-height: 17px;
 `;
 
-const ArticleComments = (props: {
-  articleId: string;
-  comments: ArticleComment[];
-}) => {
+const ArticleComments = (props: { articleId: string }) => {
   const formatDate = useDateFormatter();
   const [newCommentText, setNewCommentText] = useState("");
+  const [comments, setComments] = useState<ArticleComment[]>();
+
+  useEffect(() => {
+    const loadComments = async () => {
+      const comments = await CommentsService.getComments(props.articleId);
+      setComments(comments);
+    };
+    loadComments();
+  }, []);
 
   const sendComment = async () => {
     if (!newCommentText) {
@@ -80,44 +86,49 @@ const ArticleComments = (props: {
     //props.comments.push(newCommentObject);
   };
 
-  const getLabel = () => (props.comments.length == 1 ? "comment" : "comments");
+  const getLabel = () =>
+    comments && comments.length == 1 ? "comment" : "comments";
 
   return (
-    <Container>
-      <Title>
-        {props.comments.length} {getLabel()}
-      </Title>
+    <>
+      {comments && (
+        <Container>
+          <Title>
+            {comments.length} {getLabel()}
+          </Title>
 
-      <NewCommentInput
-        placeholder="Write your comment..."
-        maxLength={1000}
-        value={newCommentText}
-        onChange={(e) => setNewCommentText(e.target.value)}
-      />
-      <NewCommentControls>
-        <Button
-          label="Send comment"
-          onClick={() => sendComment()}
-          disabled={!newCommentText}
-        />
-      </NewCommentControls>
+          <NewCommentInput
+            placeholder="Write your comment..."
+            maxLength={1000}
+            value={newCommentText}
+            onChange={(e) => setNewCommentText(e.target.value)}
+          />
+          <NewCommentControls>
+            <Button
+              label="Send comment"
+              onClick={() => sendComment()}
+              disabled={!newCommentText}
+            />
+          </NewCommentControls>
 
-      <ExistingComments>
-        {props.comments.map((c) => (
-          <ExistingComment key={c.id}>
-            {c.author.fullName && (
-              <ExistingCommentAuthorFullName>
-                {c.author.fullName}
-              </ExistingCommentAuthorFullName>
-            )}
-            <ExistingCommentMetadata>
-              {`@${c.author.userName} on ${formatDate(c.createdOn)}`}
-            </ExistingCommentMetadata>
-            <ExistingCommentContent>{c.content}</ExistingCommentContent>
-          </ExistingComment>
-        ))}
-      </ExistingComments>
-    </Container>
+          <ExistingComments>
+            {comments.map((c) => (
+              <ExistingComment key={c.id}>
+                {c.author.fullName && (
+                  <ExistingCommentAuthorFullName>
+                    {c.author.fullName}
+                  </ExistingCommentAuthorFullName>
+                )}
+                <ExistingCommentMetadata>
+                  {`@${c.author.userName} on ${formatDate(c.createdOn)}`}
+                </ExistingCommentMetadata>
+                <ExistingCommentContent>{c.content}</ExistingCommentContent>
+              </ExistingComment>
+            ))}
+          </ExistingComments>
+        </Container>
+      )}
+    </>
   );
 };
 

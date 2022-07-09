@@ -1,12 +1,12 @@
 import * as ArticlesService from "../../../services/ArticlesService";
 import * as CommentsService from "../../../services/CommentsService";
-import * as ImagesService from "../../../services/ImagesService";
 import React, { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Article, ArticleComment } from "../../../types/Articles";
 import Page from "../../Page";
 import ArticleComments from "./ArticleComments";
+import { preloadData } from "../../../services/PreloadingService";
 
 const Container = styled.div`
   padding: 0 200px;
@@ -50,7 +50,6 @@ const ArticleCommentsSeparator = styled.div`
 
 const ArticlePage = () => {
   const [article, setArticle] = useState<Article>();
-  const [comments, setComments] = useState<ArticleComment[]>();
   const { articleId } = useParams();
 
   if (!articleId) {
@@ -71,24 +70,7 @@ const ArticlePage = () => {
   }, []);
 
   useEffect(() => {
-    const loadComments = async () => {
-      const comments = await CommentsService.getComments(articleId);
-      setComments(comments);
-    };
-    loadComments();
-  }, []);
-
-  useEffect(() => {
-    const warmCache = async () => {
-      if (!ArticlesService.getIsLoaded()) {
-        const articlesSummary = await ArticlesService.getArticlesSummary(true);
-        await ArticlesService.getArticles(false, true);
-        ImagesService.preloadImages(articlesSummary.map((a) => a.imageUrl));
-        ArticlesService.setIsLoaded(true);
-      }
-    };
-
-    warmCache();
+    preloadData(true);
   }, []);
 
   return (
@@ -104,7 +86,7 @@ const ArticlePage = () => {
             </ArticleSection>
           ))}
           <ArticleCommentsSeparator />
-          <ArticleComments articleId={article.id} comments={comments ?? []} />
+          <ArticleComments articleId={article.id} />
         </Container>
       )}
     </Page>

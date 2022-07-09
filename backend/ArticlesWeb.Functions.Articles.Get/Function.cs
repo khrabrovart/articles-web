@@ -29,8 +29,14 @@ public class Function
             : new[] {await GetArticle(requestParams.ArticleId.Value)};
 
         object response = requestParams.Mode == RequestParameters.ResponseMode.Full
-            ? articles.Select(a => new Article(a, requestParams.WithComments))
-            : articles.Select(a => new ArticleSummary(a));
+            ? articles
+                .OrderByDescending(a => a.CreatedOn)
+                .Select(a => new Article(a, requestParams.WithComments))
+                .ToArray()
+            : articles
+                .OrderByDescending(a => a.CreatedOn)
+                .Select(a => new ArticleSummary(a))
+                .ToArray();
 
         return APIGatewayResponse.Ok(response);
     }

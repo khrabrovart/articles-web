@@ -1,10 +1,10 @@
 import * as ArticlesService from "../../../services/ArticlesService";
-import * as ImagesService from "../../../services/ImagesService";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ArticleSummary } from "../../../types/Articles";
 import Page from "../../Page";
+import { preloadData } from "../../../services/PreloadingService";
 
 const Container = styled.div`
   display: flex;
@@ -61,15 +61,7 @@ const ArticlesPage = () => {
   }, []);
 
   useEffect(() => {
-    const warmCache = async () => {
-      if (!ArticlesService.getIsLoaded()) {
-        const articles = await ArticlesService.getArticles(false, true);
-        ImagesService.preloadImages(articles.map((a) => a.imageUrl));
-        ArticlesService.setIsLoaded(true);
-      }
-    };
-
-    warmCache();
+    preloadData(false);
   }, []);
 
   return (
