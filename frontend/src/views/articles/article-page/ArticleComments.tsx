@@ -61,7 +61,7 @@ const ExistingCommentContent = styled.div`
 const ArticleComments = (props: { articleId: string }) => {
   const formatDate = useDateFormatter();
   const [newCommentText, setNewCommentText] = useState("");
-  const [comments, setComments] = useState<ArticleComment[] | undefined>();
+  const [comments, setComments] = useState<ArticleComment[]>([]);
 
   useEffect(() => {
     const loadComments = async () => {
@@ -84,52 +84,48 @@ const ArticleComments = (props: { articleId: string }) => {
     setNewCommentText("");
 
     const createdComment = await promise;
-    setComments([...(comments ?? []), createdComment]);
+    setComments([...comments, createdComment]);
   };
 
   const getLabel = () =>
     comments && comments.length == 1 ? "comment" : "comments";
 
   return (
-    <>
-      {comments && (
-        <Container>
-          <Title>
-            {comments.length} {getLabel()}
-          </Title>
+    <Container>
+      <Title>
+        {comments.length} {getLabel()}
+      </Title>
 
-          <NewCommentInput
-            placeholder="Write your comment..."
-            maxLength={1000}
-            value={newCommentText}
-            onChange={(e) => setNewCommentText(e.target.value)}
-          />
-          <NewCommentControls>
-            <Button
-              label="Send comment"
-              onClick={() => sendComment()}
-              disabled={!newCommentText}
-            />
-          </NewCommentControls>
+      <NewCommentInput
+        placeholder="Write your comment..."
+        maxLength={1000}
+        value={newCommentText}
+        onChange={(e) => setNewCommentText(e.target.value)}
+      />
+      <NewCommentControls>
+        <Button
+          label="Send comment"
+          onClick={() => sendComment()}
+          disabled={!newCommentText}
+        />
+      </NewCommentControls>
 
-          <ExistingComments>
-            {comments.map((c) => (
-              <ExistingComment key={c.id}>
-                {c.author.fullName && (
-                  <ExistingCommentAuthorFullName>
-                    {c.author.fullName}
-                  </ExistingCommentAuthorFullName>
-                )}
-                <ExistingCommentMetadata>
-                  {`@${c.author.userName} on ${formatDate(c.createdOn)}`}
-                </ExistingCommentMetadata>
-                <ExistingCommentContent>{c.content}</ExistingCommentContent>
-              </ExistingComment>
-            ))}
-          </ExistingComments>
-        </Container>
-      )}
-    </>
+      <ExistingComments>
+        {comments.map((c) => (
+          <ExistingComment key={c.id}>
+            {c.author.fullName && (
+              <ExistingCommentAuthorFullName>
+                {c.author.fullName}
+              </ExistingCommentAuthorFullName>
+            )}
+            <ExistingCommentMetadata>
+              {`@${c.author.userName} on ${formatDate(c.createdOn)}`}
+            </ExistingCommentMetadata>
+            <ExistingCommentContent>{c.content}</ExistingCommentContent>
+          </ExistingComment>
+        ))}
+      </ExistingComments>
+    </Container>
   );
 };
 
