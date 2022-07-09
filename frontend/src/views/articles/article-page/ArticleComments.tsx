@@ -61,7 +61,7 @@ const ExistingCommentContent = styled.div`
 const ArticleComments = (props: { articleId: string }) => {
   const formatDate = useDateFormatter();
   const [newCommentText, setNewCommentText] = useState("");
-  const [comments, setComments] = useState<ArticleComment[]>();
+  const [comments, setComments] = useState<ArticleComment[] | undefined>();
 
   useEffect(() => {
     const loadComments = async () => {
@@ -80,10 +80,11 @@ const ArticleComments = (props: { articleId: string }) => {
       props.articleId,
       newCommentText
     );
+
     setNewCommentText("");
 
-    await promise;
-    //props.comments.push(newCommentObject);
+    const createdComment = await promise;
+    setComments([...(comments ?? []), createdComment]);
   };
 
   const getLabel = () =>

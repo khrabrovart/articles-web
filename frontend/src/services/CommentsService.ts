@@ -20,11 +20,16 @@ export const mapApiArticleComment = (comment: ApiArticleComment) => ({
 export const createComment = async (
   articleId: string,
   content: string
-): Promise<void> => {
-  await httpPost<CreateCommentRequest>(ApiRoutes.Comments, {
-    articleId,
-    content,
-  });
+): Promise<ArticleComment> => {
+  const result = await httpPost<CreateCommentRequest, ApiArticleComment>(
+    ApiRoutes.Comments,
+    {
+      articleId,
+      content,
+    }
+  );
+
+  return mapApiArticleComment(result.data);
 };
 
 export const getComments = async (

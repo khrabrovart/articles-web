@@ -11,10 +11,10 @@ export const httpGet = <TResponse>(
   params: any = undefined
 ): Promise<ApiResponse<TResponse>> => axios.get(buildRoute(route), { params });
 
-export const httpPost = <TRequest>(
+export const httpPost = <TRequest, TResponse>(
   route: string,
   body: TRequest
-): Promise<ApiResponse<void>> => axios.post(buildRoute(route), body);
+): Promise<ApiResponse<TResponse>> => axios.post(buildRoute(route), body);
 
 export enum ApiRoutes {
   Articles = "articles",
