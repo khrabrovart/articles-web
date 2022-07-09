@@ -39,22 +39,24 @@ resource "aws_cloudfront_distribution" "cdn" {
   dynamic "ordered_cache_behavior" {
     for_each = var.ordered_cache_behaviors
 
-    path_pattern     = ordered_cache_behavior.value.path_pattern
-    allowed_methods  = ordered_cache_behavior.value.allowed_methods
-    cached_methods   = ordered_cache_behavior.value.cached_methods
-    target_origin_id = ordered_cache_behavior.value.target_origin_id
+    content {
+      path_pattern     = ordered_cache_behavior.value.path_pattern
+      allowed_methods  = ordered_cache_behavior.value.allowed_methods
+      cached_methods   = ordered_cache_behavior.value.cached_methods
+      target_origin_id = ordered_cache_behavior.value.target_origin_id
 
-    viewer_protocol_policy = ordered_cache_behavior.value.viewer_protocol_policy
-    min_ttl                = ordered_cache_behavior.value.min_ttl
-    default_ttl            = ordered_cache_behavior.value.default_ttl
-    max_ttl                = ordered_cache_behavior.value.max_ttl
-    compress               = ordered_cache_behavior.value.compress
+      viewer_protocol_policy = ordered_cache_behavior.value.viewer_protocol_policy
+      min_ttl                = ordered_cache_behavior.value.min_ttl
+      default_ttl            = ordered_cache_behavior.value.default_ttl
+      max_ttl                = ordered_cache_behavior.value.max_ttl
+      compress               = ordered_cache_behavior.value.compress
 
-    forwarded_values {
-      query_string = ordered_cache_behavior.value.forwarded_values.query_string
+      forwarded_values {
+        query_string = ordered_cache_behavior.value.forwarded_values.query_string
 
-      cookies {
-        forward = ordered_cache_behavior.value.forwarded_values.cookies.forward
+        cookies {
+          forward = ordered_cache_behavior.value.forwarded_values.cookies.forward
+        }
       }
     }
   }
