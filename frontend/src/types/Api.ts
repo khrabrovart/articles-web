@@ -13,7 +13,7 @@ export interface ApiArticle {
   title: string;
   imageUrl: string;
   sections: ApiArticleSection[];
-  comments: ApiArticleComment[];
+  comments: ApiArticleComment[] | undefined;
 }
 
 export interface ApiArticleSection {

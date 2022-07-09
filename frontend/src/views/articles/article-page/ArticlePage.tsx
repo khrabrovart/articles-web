@@ -1,9 +1,10 @@
 import * as ArticlesService from "../../../services/ArticlesService";
+import * as CommentsService from "../../../services/CommentsService";
+import * as ImagesService from "../../../services/ImagesService";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import useArticles from "../../../hooks/data/ArticlesDataHook";
-import { Article } from "../../../types/Articles";
+import { Article, ArticleComment } from "../../../types/Articles";
 import Page from "../../Page";
 import ArticleComments from "./ArticleComments";
 
@@ -49,26 +50,45 @@ const ArticleCommentsSeparator = styled.div`
 
 const ArticlePage = () => {
   const [article, setArticle] = useState<Article>();
+  const [comments, setComments] = useState<ArticleComment[]>();
   const { articleId } = useParams();
-  const navigate = useNavigate();
-  const [_, getArticleById] = useArticles();
+
+  if (!articleId) {
+    return <Navigate to="/404" replace />;
+  }
 
   useEffect(() => {
-    if (!articleId) {
-      navigate("/404");
-    }
-
     const loadArticle = async () => {
-      let article = getArticleById(articleId!);
-      article ??= await ArticlesService.getArticle(articleId!);
+      const article = await ArticlesService.getArticle(articleId!, false, true);
 
       if (!article) {
-        navigate("/404");
+        return <Navigate to="/404" replace />;
       }
 
       setArticle(article);
     };
     loadArticle();
+  }, []);
+
+  useEffect(() => {
+    const loadComments = async () => {
+      const comments = await CommentsService.getComments(articleId);
+      setComments(comments);
+    };
+    loadComments();
+  }, []);
+
+  useEffect(() => {
+    const warmCache = async () => {
+      if (!ArticlesService.getIsLoaded()) {
+        const articlesSummary = await ArticlesService.getArticlesSummary(true);
+        await ArticlesService.getArticles(false, true);
+        ImagesService.preloadImages(articlesSummary.map((a) => a.imageUrl));
+        ArticlesService.setIsLoaded(true);
+      }
+    };
+
+    warmCache();
   }, []);
 
   return (
@@ -84,7 +104,7 @@ const ArticlePage = () => {
             </ArticleSection>
           ))}
           <ArticleCommentsSeparator />
-          <ArticleComments articleId={article.id} comments={article.comments} />
+          <ArticleComments articleId={article.id} comments={comments ?? []} />
         </Container>
       )}
     </Page>

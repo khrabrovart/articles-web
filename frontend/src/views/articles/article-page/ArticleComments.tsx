@@ -80,9 +80,13 @@ const ArticleComments = (props: {
     //props.comments.push(newCommentObject);
   };
 
+  const getLabel = () => (props.comments.length == 1 ? "comment" : "comments");
+
   return (
     <Container>
-      <Title>{props.comments.length} comments</Title>
+      <Title>
+        {props.comments.length} {getLabel()}
+      </Title>
 
       <NewCommentInput
         placeholder="Write your comment..."

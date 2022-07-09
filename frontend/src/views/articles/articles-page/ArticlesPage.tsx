@@ -1,9 +1,9 @@
 import * as ArticlesService from "../../../services/ArticlesService";
+import * as ImagesService from "../../../services/ImagesService";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import useArticles from "../../../hooks/data/ArticlesDataHook";
-import { Article, ArticleSummary } from "../../../types/Articles";
+import { ArticleSummary } from "../../../types/Articles";
 import Page from "../../Page";
 
 const Container = styled.div`
@@ -25,7 +25,7 @@ const ArticlePanel = styled.div<{ imageUrl: string }>`
   background-position: center top;
   background-size: cover;
   box-shadow: 0 0 5px #aaa;
-  text-shadow: 0 0 5px #000;
+  text-shadow: 0 0 2px #000;
   cursor: pointer;
 
   top: 0;
@@ -50,15 +50,26 @@ const ArticlePanelMetadata = styled.div`
 
 const ArticlesPage = () => {
   const navigate = useNavigate();
-  const [predefinedArticles, _] = useArticles();
   const [articles, setArticles] = useState<ArticleSummary[]>([]);
 
   useEffect(() => {
     const loadArticles = async () => {
-      const result = await ArticlesService.getArticles();
-      setArticles([...predefinedArticles, ...result]);
+      const articlesSummary = await ArticlesService.getArticlesSummary(true);
+      setArticles(articlesSummary);
     };
     loadArticles();
+  }, []);
+
+  useEffect(() => {
+    const warmCache = async () => {
+      if (!ArticlesService.getIsLoaded()) {
+        const articles = await ArticlesService.getArticles(false, true);
+        ImagesService.preloadImages(articles.map((a) => a.imageUrl));
+        ArticlesService.setIsLoaded(true);
+      }
+    };
+
+    warmCache();
   }, []);
 
   return (

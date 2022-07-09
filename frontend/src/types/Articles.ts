@@ -9,7 +9,7 @@ export interface Article {
   title: string;
   imageUrl: string;
   sections: ArticleSection[];
-  comments: ArticleComment[];
+  comments: ArticleComment[] | undefined;
 }
 
 export interface ArticleSection {
