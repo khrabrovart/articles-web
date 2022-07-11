@@ -109,8 +109,7 @@ jobs:
 
     strategy:
       matrix:
-        config:
-          - { region: us-east-1, s3-postfix: us }
+        region: [us-east-1]
 
     defaults:
       run:
@@ -145,7 +144,7 @@ jobs:
           TF_VAR_allowed_account_id: ${{ secrets.ALLOWED_ACCOUNT_ID }}
         run: |
           terraform init -input=false
-          terraform plan -input=false -no-color -var region=${{ matrix.region }} -var s3_name_postfix=${{ matrix.s3-postfix }}
+          terraform plan -input=false -no-color -var region=${{ matrix.region }}
 
   deploy:
     name: Deploy
