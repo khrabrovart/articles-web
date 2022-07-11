@@ -36,7 +36,9 @@ resource "aws_apigatewayv2_stage" "api" {
       routeKey                = "$context.routeKey"
       status                  = "$context.status"
       responseLength          = "$context.responseLength"
+      responseLatency         = "$context.responseLatency"
       integrationErrorMessage = "$context.integrationErrorMessage"
+      integrationLatency      = "$context.integrationLatency"
       }
     )
   }
