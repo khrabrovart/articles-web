@@ -4,6 +4,12 @@ variable "region" {
   default     = "us-east-1"
 }
 
+variable "s3_name_postfix" {
+  description = "S3 bucket name postfix"
+  type        = string
+  default     = "us"
+}
+
 variable "allowed_account_id" {
   description = "The id of the one AWS account this code is permitted to run against"
   type        = string
