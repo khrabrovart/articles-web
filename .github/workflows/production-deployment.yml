@@ -107,10 +107,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
-    strategy:
-      matrix:
-        region: [us-east-1, eu-central-1]
-
     defaults:
       run:
         working-directory: infrastructure
@@ -144,7 +140,7 @@ jobs:
           TF_VAR_allowed_account_id: ${{ secrets.ALLOWED_ACCOUNT_ID }}
         run: |
           terraform init -input=false
-          terraform plan -input=false -no-color -var region=${{ matrix.region }}
+          terraform plan -input=false -no-color
 
   deploy:
     name: Deploy
