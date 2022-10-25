@@ -31,7 +31,7 @@ resource "aws_lambda_function" "lambda" {
   handler     = var.function_handler
   runtime     = "dotnet6"
   timeout     = 5
-  memory_size = 256
+  memory_size = 512
 
   tags = var.common_tags
 
