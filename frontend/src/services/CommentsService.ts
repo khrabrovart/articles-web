@@ -7,7 +7,7 @@ interface CreateCommentRequest {
   content: string;
 }
 
-export const mapApiArticleComment = (comment: ApiArticleComment) => ({
+const mapApiArticleComment = (comment: ApiArticleComment) => ({
   id: comment.id,
   content: comment.content,
   createdOn: new Date(comment.createdOn),

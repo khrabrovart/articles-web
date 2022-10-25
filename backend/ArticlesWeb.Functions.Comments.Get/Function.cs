@@ -13,12 +13,12 @@ namespace ArticlesWeb.Functions.Comments.Get;
 
 public class Function
 {
-    private readonly IArticlesService _articlesService;
+    private readonly ICommentsService _commentsService;
 
     public Function()
     {
         var serviceProvider = LambdaConfiguration.ConfigureServices();
-        _articlesService = serviceProvider.GetService<IArticlesService>();
+        _commentsService = serviceProvider.GetService<ICommentsService>();
     }
 
     public async Task<APIGatewayProxyResponse> Handler(APIGatewayProxyRequest apiRequest, ILambdaContext ctx)
@@ -37,10 +37,11 @@ public class Function
 
     private async Task<IReadOnlyCollection<ArticleComment>> GetArticleComments(Guid articleId)
     {
-        var article = await _articlesService.Get(articleId);
-        return article.Comments?
+        var comments = await _commentsService.Get(articleId);
+
+        return comments
             .OrderByDescending(c => c.CreatedOn)
             .Select(c => new ArticleComment(c))
-            .ToArray() ?? Array.Empty<ArticleComment>();
+            .ToArray();
     }
 }

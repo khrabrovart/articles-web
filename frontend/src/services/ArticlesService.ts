@@ -1,7 +1,6 @@
 import { Article, ArticleSummary } from "../types/Articles";
 import { ApiArticle, ApiArticleSummary } from "../types/Api";
 import { ApiRoutes, httpGet } from "./QueryService";
-import { mapApiArticleComment } from "./CommentsService";
 
 const mapApiArticle = (article: ApiArticle) => {
   return {
@@ -12,7 +11,6 @@ const mapApiArticle = (article: ApiArticle) => {
       title: s.title,
       content: s.content,
     })),
-    comments: article.comments?.map(mapApiArticleComment),
   };
 };
 
@@ -21,8 +19,7 @@ const articlesCache: Map<string, Article[] | ArticleSummary[]> = new Map<
   Article[] | ArticleSummary[]
 >();
 
-const createCacheKey = (withComments: boolean, isFull: boolean) =>
-  `${withComments},${isFull}`;
+const createCacheKey = (isFull: boolean) => `${isFull}`;
 
 let isLoaded: boolean = false;
 
@@ -33,7 +30,7 @@ export const getArticlesSummary = async (
   useCache: boolean
 ): Promise<ArticleSummary[]> => {
   if (useCache) {
-    const cachedResult = articlesCache.get(createCacheKey(false, false));
+    const cachedResult = articlesCache.get(createCacheKey(false));
 
     if (cachedResult) {
       return cachedResult as ArticleSummary[];
@@ -42,7 +39,6 @@ export const getArticlesSummary = async (
 
   const result = await httpGet<ApiArticleSummary[]>(ApiRoutes.Articles, {
     mode: "summary",
-    withComments: false,
   });
 
   const mappedResult = result.data.map((a) => ({
@@ -51,17 +47,14 @@ export const getArticlesSummary = async (
     imageUrl: a.imageUrl,
   }));
 
-  articlesCache.set(createCacheKey(false, false), mappedResult);
+  articlesCache.set(createCacheKey(false), mappedResult);
 
   return mappedResult;
 };
 
-export const getArticles = async (
-  withComments: boolean,
-  useCache: boolean
-): Promise<Article[]> => {
+export const getArticles = async (useCache: boolean): Promise<Article[]> => {
   if (useCache) {
-    const cachedResult = articlesCache.get(createCacheKey(withComments, true));
+    const cachedResult = articlesCache.get(createCacheKey(true));
 
     if (cachedResult) {
       return cachedResult as Article[];
@@ -70,23 +63,21 @@ export const getArticles = async (
 
   const result = await httpGet<ApiArticle[]>(ApiRoutes.Articles, {
     mode: "full",
-    withComments,
   });
 
   const mappedResult = result.data.map(mapApiArticle);
 
-  articlesCache.set(createCacheKey(withComments, true), mappedResult);
+  articlesCache.set(createCacheKey(true), mappedResult);
 
   return mappedResult;
 };
 
 export const getArticle = async (
   articleId: string,
-  withComments: boolean,
   useCache: boolean
 ): Promise<Article> => {
   if (useCache) {
-    const cachedResult = articlesCache.get(createCacheKey(withComments, true));
+    const cachedResult = articlesCache.get(createCacheKey(true));
 
     if (cachedResult) {
       const cachedArticle = cachedResult.find((a) => a.id === articleId);
@@ -100,7 +91,6 @@ export const getArticle = async (
   const result = await httpGet<ApiArticle[]>(ApiRoutes.Articles, {
     articleId,
     mode: "full",
-    withComments,
   });
 
   return mapApiArticle(result.data[0]);

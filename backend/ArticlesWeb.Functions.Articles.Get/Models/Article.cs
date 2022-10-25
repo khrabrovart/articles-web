@@ -1,11 +1,10 @@
 ﻿using ArticlesWeb.Core.Entities;
-using ArticlesWeb.Functions.Shared.Models;
 
 namespace ArticlesWeb.Functions.Articles.Get.Models;
 
 public class Article
 {
-    public Article(DbArticle dbArticle, bool withComments)
+    public Article(DbArticle dbArticle)
     {
         Id = dbArticle.Id;
         Title = dbArticle.Title;
@@ -14,14 +13,6 @@ public class Article
         Sections = dbArticle.Sections?
             .Select(s => new ArticleSection(s))
             .ToArray() ?? Array.Empty<ArticleSection>();
-
-        if (withComments)
-        {
-            Comments = dbArticle.Comments?
-                .OrderByDescending(c => c.CreatedOn)
-                .Select(c => new ArticleComment(c))
-                .ToArray() ?? Array.Empty<ArticleComment>();
-        }
     }
 
     public Guid Id { get; }
@@ -31,6 +22,4 @@ public class Article
     public string ImageUrl { get; }
 
     public IReadOnlyCollection<ArticleSection> Sections { get; }
-
-    public IReadOnlyCollection<ArticleComment> Comments { get; }
 }

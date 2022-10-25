@@ -31,7 +31,7 @@ public class Function
         object response = requestParams.Mode == RequestParameters.ResponseMode.Full
             ? articles
                 .OrderByDescending(a => a.CreatedOn)
-                .Select(a => new Article(a, requestParams.WithComments))
+                .Select(a => new Article(a))
                 .ToArray()
             : articles
                 .OrderByDescending(a => a.CreatedOn)

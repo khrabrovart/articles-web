@@ -58,7 +58,7 @@ const ArticlePage = () => {
 
   useEffect(() => {
     const loadArticle = async () => {
-      const article = await ArticlesService.getArticle(articleId!, false, true);
+      const article = await ArticlesService.getArticle(articleId!, true);
 
       if (!article) {
         return <Navigate to="/404" replace />;

@@ -30,6 +30,4 @@ public class DbArticle
     public Guid AuthorId { get; private set; }
 
     public List<DbArticleSection> Sections { get; private set; }
-
-    public List<DbArticleComment> Comments { get; private set; } = new();
 }

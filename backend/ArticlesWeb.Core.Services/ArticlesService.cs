@@ -15,7 +15,7 @@ public class ArticlesService : IArticlesService
 
     public async Task Create(string title, string imageUrl, IEnumerable<DbArticleSection> sections)
     {
-        var dbContext = new DynamoDBContext(_dbClient);
+        using var dbContext = new DynamoDBContext(_dbClient);
 
         var article = new DbArticle(title, imageUrl, sections);
         await dbContext.SaveAsync(article);
@@ -23,7 +23,7 @@ public class ArticlesService : IArticlesService
 
     public async Task<IReadOnlyCollection<DbArticle>> GetAll()
     {
-        var dbContext = new DynamoDBContext(_dbClient);
+        using var dbContext = new DynamoDBContext(_dbClient);
 
         return await dbContext
             .ScanAsync<DbArticle>(Array.Empty<ScanCondition>())
@@ -32,7 +32,7 @@ public class ArticlesService : IArticlesService
 
     public async Task<DbArticle> Get(Guid articleId)
     {
-        var dbContext = new DynamoDBContext(_dbClient);
+        using var dbContext = new DynamoDBContext(_dbClient);
 
         return await dbContext.LoadAsync<DbArticle>(articleId);
     }

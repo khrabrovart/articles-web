@@ -14,7 +14,6 @@ public class RequestParameters
 
     public ResponseMode Mode { get; private init; }
 
-    public bool WithComments { get; private init; }
 
     public static RequestParameters FromAPIRequest(APIGatewayProxyRequest request)
     {
@@ -29,9 +28,7 @@ public class RequestParameters
             Mode = parameters.TryGetValue("mode", out var m)
                    && Enum.TryParse<ResponseMode>(m, ignoreCase: true, out var mode)
                 ? mode
-                : ResponseMode.Full,
-            WithComments = !(parameters.TryGetValue("withComments", out var wc)
-                             && bool.TryParse(wc, out var withComments)) || withComments
+                : ResponseMode.Full
         };
 
         LambdaLogger.Log(JsonConvert.SerializeObject(parsedParameters));
