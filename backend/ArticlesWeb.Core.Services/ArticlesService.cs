@@ -18,7 +18,10 @@ public class ArticlesService : IArticlesService
         using var dbContext = new DynamoDBContext(_dbClient);
 
         var article = new DbArticle(title, imageUrl, sections);
+        var commentsCollection = new DbArticleCommentsCollection(article.Id);
+
         await dbContext.SaveAsync(article);
+        await dbContext.SaveAsync(commentsCollection);
     }
 
     public async Task<IReadOnlyCollection<DbArticle>> GetAll()

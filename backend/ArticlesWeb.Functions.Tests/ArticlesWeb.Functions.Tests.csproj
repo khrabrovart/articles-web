@@ -7,8 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\ArticlesWeb.Functions.Articles.Create\ArticlesWeb.Functions.Articles.Create.csproj" />
       <ProjectReference Include="..\ArticlesWeb.Functions.Comments.Create\ArticlesWeb.Functions.Comments.Create.csproj" />
       <ProjectReference Include="..\ArticlesWeb.Functions.Articles.Get\ArticlesWeb.Functions.Articles.Get.csproj" />
+      <ProjectReference Include="..\ArticlesWeb.Functions.Comments.Get\ArticlesWeb.Functions.Comments.Get.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -17,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="Templates\ArticlesWeb.Functions.Comments.Get.json">
+      <None Update="Templates\Comments.Get.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>
