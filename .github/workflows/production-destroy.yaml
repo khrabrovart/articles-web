@@ -175,4 +175,4 @@ jobs:
           TF_VAR_allowed_account_id: ${{ secrets.ALLOWED_ACCOUNT_ID }}
         run: |
           terraform init -input=false
-          terraform apply -destroy
+          terraform apply -destroy -auto-approve -input=false
