@@ -6,7 +6,6 @@ jobs:
   plan-destroy:
     name: Plan Destroy All Resources
     runs-on: ubuntu-latest
-    environment: Production
     timeout-minutes: 2
 
     defaults:
