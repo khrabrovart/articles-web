@@ -1,12 +1,104 @@
-name: Destroy All
+name: Production Destroy
 
 on: [workflow_dispatch]
 
 jobs:
-  plan-destroy:
-    name: Plan Destroy All Resources
+  build-frontend:
+    name: Build Frontend
     runs-on: ubuntu-latest
-    timeout-minutes: 2
+    timeout-minutes: 5
+
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Cache node_modules
+        env:
+          cache-name: cache-node-modules
+        uses: actions/cache@v3
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Build project
+        env:
+          NODE_ENV: production
+        run: |
+          yarn install
+          yarn build
+
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: frontend
+          retention-days: 1
+          path: frontend/dist/
+          if-no-files-found: error
+
+  build-backend:
+    name: Build Backend
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    strategy:
+      matrix:
+        project:
+          [
+            ArticlesWeb.Functions.Comments.Create,
+            ArticlesWeb.Functions.Comments.Get,
+            ArticlesWeb.Functions.Articles.Create,
+            ArticlesWeb.Functions.Articles.Get,
+          ]
+
+    defaults:
+      run:
+        working-directory: backend/${{ matrix.project }}
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: "6.0.x"
+
+      - name: Cache NuGet packages
+        env:
+          cache-name: cache-nuget-packages
+        uses: actions/cache@v3
+        with:
+          path: "**/.nuget/packages"
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.project }}-${{ hashFiles('**/packages.lock.json') }}
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build project
+        run: dotnet build --configuration Release --no-restore --output build/${{ matrix.project }}
+
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: backend
+          retention-days: 1
+          path: backend/${{ matrix.project }}/build/
+          if-no-files-found: error
+
+  plan:
+    name: Plan Destroy
+    needs: [build-frontend, build-backend]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     defaults:
       run:
@@ -20,6 +112,11 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v2
 
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: infrastructure/artifacts
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -31,19 +128,19 @@ jobs:
         with:
           terraform_version: 1.1.9
 
-      - name: Destroy Terraform
+      - name: Plan Terraform
         env:
           TF_VAR_allowed_account_id: ${{ secrets.ALLOWED_ACCOUNT_ID }}
         run: |
           terraform init -input=false
           terraform plan -destroy
 
-  apply-destroy:
-    name: Apply Destroy All Resources
-    needs: plan-destroy
+  destroy:
+    name: Destroy
+    needs: plan
     runs-on: ubuntu-latest
     environment: Production
-    timeout-minutes: 2
+    timeout-minutes: 10
 
     defaults:
       run:
@@ -57,6 +154,11 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v2
 
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: infrastructure/artifacts
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -68,7 +170,7 @@ jobs:
         with:
           terraform_version: 1.1.9
 
-      - name: Destroy Terraform
+      - name: Apply Terraform
         env:
           TF_VAR_allowed_account_id: ${{ secrets.ALLOWED_ACCOUNT_ID }}
         run: |
